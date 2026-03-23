@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Commercial Foundation
 
-- [ ] **COMM-01**: Revenue share model documented with scenarios at 3 fill rates (25%, 50%, 75%)
-- [ ] **COMM-02**: Content policy agreement signed with CLC (categories allowed/blocked, approval process)
-- [ ] **COMM-03**: Advertiser pipeline with 3+ potential advertisers contacted (ISAPREs, pharma, insurance)
+- [x] **COMM-01**: Revenue share model documented with scenarios at 3 fill rates (25%, 50%, 75%)
+- [x] **COMM-02**: Content policy agreement drafted for CLC (categories allowed/blocked, approval process)
+- [x] **COMM-03**: Advertiser pipeline with 3+ potential advertiser categories documented (ISAPREs, pharma, insurance, wellness)
 
 ### Technical Audit & Handover
 
@@ -91,9 +91,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| COMM-01 | Phase 0 | Pending |
-| COMM-02 | Phase 0 | Pending |
-| COMM-03 | Phase 0 | Pending |
+| COMM-01 | Phase 0 | Complete |
+| COMM-02 | Phase 0 | Complete |
+| COMM-03 | Phase 0 | Complete |
 | AUDIT-01 | Phase 1 | Pending |
 | AUDIT-02 | Phase 1 | Pending |
 | AUDIT-03 | Phase 1 | Pending |
@@ -118,4 +118,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after roadmap creation*
+*Last updated: 2026-03-23 after Phase 0 completion*

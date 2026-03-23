@@ -10,7 +10,7 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
 - Integer phases (0, 1, 2, ...): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 0: Commercial Foundation** - Revenue model, content policy, and advertiser pipeline locked before any technical work
+- [x] **Phase 0: Commercial Foundation** - Revenue model, content policy, and advertiser pipeline locked before any technical work
 - [ ] **Phase 1: Technical Audit & Handover** - MagicInfo server verified, screens catalogued, zero-downtime transition executed
 - [ ] **Phase 2: Platform Scaffold & Screen Management** - Next.js panel live with authenticated access and full screen health dashboard
 - [ ] **Phase 3: Content & Scheduling** - Content library and time-of-day scheduling operational via MagicInfo API
@@ -28,7 +28,7 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
   2. CLC has reviewed and agreed to a written content policy defining allowed/blocked ad categories and the approval process
   3. At least 3 potential advertisers (ISAPREs, pharma, insurance) have been contacted and are in a documented pipeline
   4. Belgrano can answer "how much will CLC earn per month?" with a defensible number based on real fill-rate assumptions
-**Plans**: TBD
+**Plans**: 1 (complete)
 
 ### Phase 1: Technical Audit & Handover
 **Goal**: MagicInfo infrastructure verified, secured, and under Belgrano's operational control
@@ -91,7 +91,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Commercial Foundation | 0/TBD | Not started | - |
+| 0. Commercial Foundation | 1/1 | Complete | 2026-03-23 |
 | 1. Technical Audit & Handover | 0/TBD | Not started | - |
 | 2. Platform Scaffold & Screen Management | 0/TBD | Not started | - |
 | 3. Content & Scheduling | 0/TBD | Not started | - |
