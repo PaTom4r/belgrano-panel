@@ -1,0 +1,171 @@
+"use client";
+
+import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
+import type { MagicInfoDevice } from "@/lib/magicinfo/types";
+
+export default function ScreensPage() {
+  const [devices, setDevices] = useState<MagicInfoDevice[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [zoneFilter, setZoneFilter] = useState("all");
+
+  useEffect(() => {
+    fetch("/api/magicinfo/devices")
+      .then((res) => res.json())
+      .then((data) => {
+        setDevices(data.data || []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const zones = useMemo(() => {
+    const set = new Set(devices.map((d) => d.groupName));
+    return Array.from(set).sort();
+  }, [devices]);
+
+  const filtered = useMemo(() => {
+    return devices.filter((d) => {
+      const matchesSearch =
+        !search ||
+        d.deviceName.toLowerCase().includes(search.toLowerCase()) ||
+        d.deviceModelName.toLowerCase().includes(search.toLowerCase());
+      const matchesZone = zoneFilter === "all" || d.groupName === zoneFilter;
+      return matchesSearch && matchesZone;
+    });
+  }, [devices, search, zoneFilter]);
+
+  const onlineCount = devices.filter((d) => d.status === "CONNECTED").length;
+  const offlineCount = devices.filter(
+    (d) => d.status === "DISCONNECTED"
+  ).length;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <p className="text-gray-500">Loading screens...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">Screens</h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Manage and monitor all digital signage displays
+        </p>
+      </div>
+
+      {/* Stats bar */}
+      <div className="mb-6 grid grid-cols-3 gap-4">
+        <div className="rounded-lg bg-white p-4 shadow-sm border border-gray-100">
+          <p className="text-sm text-gray-500">Total Screens</p>
+          <p className="text-2xl font-bold text-gray-900">{devices.length}</p>
+        </div>
+        <div className="rounded-lg bg-white p-4 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2">
+            <div className="h-2.5 w-2.5 rounded-full bg-green-500" />
+            <p className="text-sm text-gray-500">Online</p>
+          </div>
+          <p className="text-2xl font-bold text-green-600">{onlineCount}</p>
+        </div>
+        <div className="rounded-lg bg-white p-4 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-2">
+            <div className="h-2.5 w-2.5 rounded-full bg-red-500" />
+            <p className="text-sm text-gray-500">Offline</p>
+          </div>
+          <p className="text-2xl font-bold text-red-600">{offlineCount}</p>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
+        <input
+          type="text"
+          placeholder="Search by name or model..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+        <select
+          value={zoneFilter}
+          onChange={(e) => setZoneFilter(e.target.value)}
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        >
+          <option value="all">All Zones</option>
+          {zones.map((z) => (
+            <option key={z} value={z}>
+              {z}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Screen grid */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filtered.map((device) => {
+          const isOnline = device.status === "CONNECTED";
+          return (
+            <Link
+              key={device.deviceId}
+              href={`/screens/${device.deviceId}`}
+              className="group rounded-xl bg-white p-4 shadow-sm border border-gray-100 transition-shadow hover:shadow-md"
+            >
+              <div className="flex items-start justify-between">
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm font-semibold text-gray-900 truncate group-hover:text-blue-600">
+                    {device.deviceName}
+                  </h3>
+                  <p className="mt-0.5 text-xs text-gray-500">
+                    {device.deviceModelName}
+                  </p>
+                </div>
+                <div
+                  className={`ml-2 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+                    isOnline ? "bg-green-500" : "bg-red-500"
+                  }`}
+                  title={isOnline ? "Online" : "Offline"}
+                />
+              </div>
+
+              <div className="mt-3 space-y-1.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-400">Zone</span>
+                  <span className="text-gray-600">{device.groupName}</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-400">Resolution</span>
+                  <span className="text-gray-600">{device.resolution}</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-400">Status</span>
+                  <span
+                    className={`font-medium ${
+                      isOnline ? "text-green-600" : "text-red-600"
+                    }`}
+                  >
+                    {isOnline ? "Online" : "Offline"}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-400">Last seen</span>
+                  <span className="text-gray-600">
+                    {new Date(device.lastConnectionTime).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {filtered.length === 0 && (
+        <div className="py-12 text-center">
+          <p className="text-gray-500">No screens match your filters.</p>
+        </div>
+      )}
+    </div>
+  );
+}
