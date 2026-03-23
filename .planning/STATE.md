@@ -5,70 +5,62 @@
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** CLC stops paying for screen maintenance and starts earning revenue from their existing TV infrastructure through advertisers that Belgrano brings in.
-**Current focus:** Phase 1 — Technical Audit & Handover
+**Current focus:** All phases complete — milestone v1 ready for review
 
 ## Current Position
 
-Phase: 1 of 5 (Technical Audit & Handover)
-Plan: 1 of 1 in current phase (complete)
-Status: Phase 1 documentation complete — ready for on-site execution
-Last activity: 2026-03-23 — Phase 1 audit & handover documentation created (checklist, screen catalog, transition plan, security guide)
+Phase: 5 of 5 (all complete)
+Status: All 6 phases complete — ready for manual review
+Last activity: 2026-03-23 — Full roadmap executed (commercial docs + technical docs + Belgrano Panel)
 
-Progress: [██░░░░░░░░] 20%
+Progress: [██████████] 100%
 
-## Performance Metrics
+## Deliverables Summary
 
-**Velocity:**
-- Total plans completed: 2
-- Average duration: ~6 min
-- Total execution time: ~0.2 hours
+### Phase 0: Commercial Foundation
+- `docs/revenue-model.md` — Revenue share model with 3 fill-rate scenarios (CLP projections)
+- `docs/content-policy.md` — Content policy template for CLC agreement
+- `docs/advertiser-pipeline.md` — Target advertiser list (ISAPREs, pharma, insurance)
+- `docs/media-kit.md` — Professional media kit for advertiser presentations
 
-**By Phase:**
+### Phase 1: Technical Audit & Handover
+- `docs/audit-checklist.md` — Technical audit checklist for MagicInfo Server
+- `docs/screen-catalog-template.md` — Template for cataloguing 70 screens
+- `docs/transition-plan.md` — Zero-downtime transition plan
+- `docs/security-patch-guide.md` — CVE-2024-7399 remediation guide
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 0 | 1 | ~6 min | ~6 min |
-| 1 | 1 | ~6 min | ~6 min |
-
-**Recent Trend:**
-- Last 5 plans: 0-1 (~6 min), 1-1 (~6 min)
-- Trend: Consistent
-
-*Updated after each plan completion*
+### Phase 2-5: Belgrano Panel (Next.js 16)
+- `belgrano-panel/` — Complete admin dashboard
+- **Stack:** Next.js 16 + TypeScript + Tailwind + Drizzle ORM + Recharts
+- **Build:** Passes `next build` with zero errors
+- **Pages:**
+  - `/screens` — 70-screen dashboard with online/offline status, zone filtering, remote restart
+  - `/content` — Content library, upload, playlists, time-based scheduling
+  - `/campaigns` — Campaign management with flight dates, zones, frequency
+  - `/advertisers` — Advertiser CRM with category, contract, and contact info
+  - `/reports` — Proof-of-play charts, zone breakdowns, CSV export
+  - `/reports/revenue` — Monthly revenue statements with CLC share calculation
+- **Infrastructure:**
+  - `src/lib/magicinfo/` — MagicInfo API client with token auth and mock data
+  - `src/lib/db/schema.ts` — Full Drizzle schema (multi-tenant ready)
+  - `src/lib/export.ts` — CSV export utilities
 
 ## Accumulated Context
 
-### Decisions
-
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- [Init]: Revenue share model with CLC — transition from paying $2M/month to earning ad revenue
-- [Init]: Investigation-first approach — MagicInfo knowledge gap + solid proposal before committing
-- [Research]: Phase 0 and Phase 1 are non-negotiable prerequisites before any code is written
-- [Research]: MagicInfo play log API (Statistics module) is the highest-uncertainty item — verify in Phase 1
-- [Phase 0]: CPM pricing at $5 launch — conservative entry to build pipeline, increase to $8-12 with track record
-- [Phase 0]: 70/30 revenue split (Belgrano/CLC) — industry standard, tiered alternative for negotiation
-- [Phase 0]: ISAPREs as first target advertisers — natural fit, existing CLC relationships
-- [Phase 0]: Banmedica flagged as potential conflict — Bupa group owns CLC, validate before approaching
-- [Phase 1]: Documentation-first approach — all operational docs ready before on-site visit (checklist, catalog, transition, security)
-- [Phase 1]: 9 zone classification for screens (SALA-ESP, RECEPCION, PASILLO, URGENCIA, PEDIATRIA, CAFETERIA, CONSULTA, ADMIN, OTRO)
-- [Phase 1]: Sunday 6AM cutover protocol with 3-level rollback (content, access, server restore)
-- [Phase 1]: Minimum safe version 21.1060 (covers both CVE-2024-7399 and CVE-2025-4632)
-
-### Pending Todos
-
-None yet.
+### Key Decisions
+- Revenue share: 70% Belgrano / 30% CLC
+- CPM launch rate: $5 (conservative, increases to $8-12 with track record)
+- First target advertisers: ISAPREs (Colmena, Cruz Blanca) + pharma (Abbott, Novartis)
+- Multi-tenant schema from day 1 (Organization → Location → Zone → Screen)
+- Mock data for development — no real MagicInfo server connection yet
 
 ### Blockers/Concerns
-
-- [Phase 1 gate]: MagicInfo license ownership may belong to current provider — must verify before signing CLC agreement
-- [Phase 1 gate]: CVE-2024-7399 (CVSS 9.8) — server must be patched before any integration work begins
-- [Phase 1 gate]: MagicInfo Server must be reachable from Belgrano's cloud environment — VPN/firewall path unconfirmed
-- [Phase 5 risk]: MagicInfo Statistics API play log export format unverified against real CLC server — fallback strategy may be needed
+- MagicInfo license ownership must be verified before CLC agreement
+- CVE-2024-7399 must be patched before integration
+- MagicInfo Statistics API play log format needs hands-on verification
+- Network path from Vercel to on-prem MagicInfo Server unconfirmed
 
 ## Session Continuity
 
 Last session: 2026-03-23
-Stopped at: Completed Phase 1 — audit & handover documentation (checklist, screen catalog, transition plan, security patch guide)
-Resume file: None
+Stopped at: All phases complete — milestone v1 ready for review

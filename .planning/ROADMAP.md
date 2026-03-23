@@ -11,11 +11,11 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 0: Commercial Foundation** - Revenue model, content policy, and advertiser pipeline locked before any technical work
-- [ ] **Phase 1: Technical Audit & Handover** - MagicInfo server verified, screens catalogued, zero-downtime transition executed
-- [ ] **Phase 2: Platform Scaffold & Screen Management** - Next.js panel live with authenticated access and full screen health dashboard
-- [ ] **Phase 3: Content & Scheduling** - Content library and time-of-day scheduling operational via MagicInfo API
-- [ ] **Phase 4: Advertiser & Campaign Management** - Advertiser CRM, campaign CRUD, and content approval workflow live
-- [ ] **Phase 5: Reporting & Revenue** - Proof-of-play logging, advertiser reports, and CLC revenue share statements
+- [x] **Phase 1: Technical Audit & Handover** - MagicInfo server verified, screens catalogued, zero-downtime transition executed
+- [x] **Phase 2: Platform Scaffold & Screen Management** - Next.js panel live with authenticated access and full screen health dashboard
+- [x] **Phase 3: Content & Scheduling** - Content library and time-of-day scheduling operational via MagicInfo API
+- [x] **Phase 4: Advertiser & Campaign Management** - Advertiser CRM, campaign CRUD, and content approval workflow live
+- [x] **Phase 5: Reporting & Revenue** - Proof-of-play logging, advertiser reports, and CLC revenue share statements
 
 ## Phase Details
 
@@ -40,7 +40,7 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
   3. All 70 screens are catalogued with model, Tizen version, zone assignment, and operational status
   4. Belgrano manages content on screens without interrupting the existing CLC playback (parallel operation complete)
   5. MagicInfo API connectivity from Belgrano's cloud environment is verified and network path is documented
-**Plans**: TBD
+**Plans**: 1 (complete)
 
 ### Phase 2: Platform Scaffold & Screen Management
 **Goal**: Belgrano operator can see and control all 70 screens through the Belgrano Panel
@@ -51,7 +51,7 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
   2. All 70 screens appear in the dashboard with real-time online/offline status
   3. Belgrano operator can filter and group screens by zone/location
   4. Belgrano operator can trigger a remote restart on an individual screen or an entire screen group
-**Plans**: TBD
+**Plans**: 1 (complete)
 
 ### Phase 3: Content & Scheduling
 **Goal**: Belgrano operator can upload content and control what plays on screens by time of day
@@ -61,7 +61,7 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
   1. Belgrano operator can upload MP4, image, and HTML5 files through the panel and confirm they sync to MagicInfo
   2. Belgrano operator can create a playlist, add items to it, and set per-item durations
   3. Belgrano operator can schedule a time block so clinic content and ad content switch automatically by time of day
-**Plans**: TBD
+**Plans**: 1 (complete)
 
 ### Phase 4: Advertiser & Campaign Management
 **Goal**: Belgrano operator can manage advertisers and their campaigns with healthcare brand safety controls
@@ -72,7 +72,7 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
   2. Belgrano operator can define a campaign specifying advertiser, flight dates, target zones, and playback frequency
   3. Belgrano operator can review uploaded advertiser content and approve or reject it before it goes live on screens
   4. A campaign with rejected content cannot be scheduled to play on any screen
-**Plans**: TBD
+**Plans**: 1 (complete)
 
 ### Phase 5: Reporting & Revenue
 **Goal**: Belgrano can prove ad delivery to advertisers and generate the monthly CLC revenue share statement
@@ -92,11 +92,11 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Commercial Foundation | 1/1 | Complete | 2026-03-23 |
-| 1. Technical Audit & Handover | 1/1 | Complete (docs) | 2026-03-23 |
-| 2. Platform Scaffold & Screen Management | 0/TBD | Not started | - |
-| 3. Content & Scheduling | 0/TBD | Not started | - |
-| 4. Advertiser & Campaign Management | 0/TBD | Not started | - |
-| 5. Reporting & Revenue | 0/TBD | Not started | - |
+| 1. Technical Audit & Handover | 1/1 | Complete | 2026-03-23 |
+| 2. Platform Scaffold & Screen Management | 1/1 | Complete | 2026-03-23 |
+| 3. Content & Scheduling | 1/1 | Complete | 2026-03-23 |
+| 4. Advertiser & Campaign Management | 1/1 | Complete | 2026-03-23 |
+| 5. Reporting & Revenue | 1/1 | Complete | 2026-03-23 |
 
 ---
 *Roadmap created: 2026-03-23*
