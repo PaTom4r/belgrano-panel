@@ -1,0 +1,65 @@
+# MagicInfo CLC — Digital Signage & DOOH Advertising
+
+## What This Is
+
+A digital signage management service offered by Belgrano Digital to Clínica Los Condes (CLC), replacing their current overpriced provider. Beyond screen management via Samsung MagicInfo, the core differentiator is building an advertiser network (TNT Sport, Warner Bros, etc.) that turns CLC's 70 screens from a cost center into a revenue source. CLC is the first client — the service is designed to scale to other clinics and locations.
+
+## Core Value
+
+CLC stops paying for screen maintenance and starts earning revenue from their existing TV infrastructure through advertisers that Belgrano brings in.
+
+## Requirements
+
+### Validated
+
+<!-- Shipped and confirmed valuable. -->
+
+(None yet — ship to validate)
+
+### Active
+
+<!-- Current scope. Building toward these. -->
+
+- [ ] Deep understanding of Samsung MagicInfo (Server/Premium) — capabilities, licensing, setup, API
+- [ ] Market research on DOOH (Digital Out-of-Home) advertising in healthcare settings
+- [ ] Business model definition — pricing for advertisers, revenue share with CLC, Belgrano margins
+- [ ] Competitive analysis — what does the current provider actually deliver vs. what's possible
+- [ ] Value proposition document — what Belgrano offers that the current provider doesn't
+- [ ] Technical assessment — what's needed to take over MagicInfo management (hardware, software, knowledge)
+- [ ] Management panel for Belgrano — admin tool for screens, content scheduling, client/advertiser management
+- [ ] Commercial proposal for CLC — actionable document to present the service
+
+### Out of Scope
+
+- Mobile app for CLC staff — web panel is sufficient for v1
+- Programmatic advertising / real-time bidding — too complex for initial offering
+- Hardware replacement — working with CLC's existing Samsung screens and infrastructure
+- Advertiser self-service portal — Belgrano manages everything initially
+
+## Context
+
+- **Current situation:** CLC pays $2,000,000 CLP + IVA/month to a company that installed MagicInfo and provides "maintenance" — but the TVs just work, so the service is barely used
+- **Infrastructure:** 70 screens across CLC facilities, ~6,000 people/day foot traffic
+- **MagicInfo knowledge:** Starting from zero — investigation is the first priority
+- **Business stage:** Conversations with CLC already in progress, need to move with urgency
+- **Potential advertisers:** TNT Sport, Warner Bros, and others — Belgrano would source and manage these relationships
+- **Scale ambition:** CLC is proof of concept, then replicate to other healthcare facilities and locations
+
+## Constraints
+
+- **Knowledge gap**: MagicInfo is new territory — need thorough investigation before committing to technical approach
+- **Timeline**: Conversations with CLC are active — research needs to be actionable, not academic
+- **Existing infrastructure**: Must work with Samsung screens and MagicInfo already installed at CLC
+- **Business model**: Revenue share with CLC — Belgrano's margins must cover operations + growth
+
+## Key Decisions
+
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| Revenue share model with CLC | CLC transitions from paying $2M/month to earning money — strongest pitch | — Pending |
+| Belgrano sources advertisers | Core differentiator vs. current provider who only does maintenance | — Pending |
+| Investigation-first approach | MagicInfo knowledge gap + need solid proposal before committing | — Pending |
+| Scalable from day one | CLC is first client but architecture/process should support multiple locations | — Pending |
+
+---
+*Last updated: 2026-03-23 after initialization*
