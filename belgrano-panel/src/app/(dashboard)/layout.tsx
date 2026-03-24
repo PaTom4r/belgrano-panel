@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: "grid" },
@@ -70,7 +71,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   function isActive(href: string) {
@@ -156,7 +156,7 @@ export default function DashboardLayout({
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => router.push("/login")}
+              onClick={() => signOut({ callbackUrl: "/login" })}
               className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
             >
               Sign out

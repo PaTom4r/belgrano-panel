@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,17 +15,19 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // Placeholder auth — accepts any non-empty credentials for now
-      if (!email || !password) {
-        setError("Please enter email and password");
-        return;
-      }
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      router.push("/");
+      if (result?.error) {
+        setError("Email o contraseña incorrectos");
+      } else {
+        window.location.href = "/";
+      }
     } catch {
-      setError("Login failed. Please try again.");
+      setError("Error de conexión. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
