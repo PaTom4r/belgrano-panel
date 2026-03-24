@@ -1,3 +1,20 @@
+// Priority level constants
+export const PRIORITY_LEVELS = {
+  emergency: 100,
+  campaign: 50,
+  default: 10,
+  fallback: 1,
+} as const;
+
+export type PriorityLevel = keyof typeof PRIORITY_LEVELS;
+
+export function getPriorityLabel(priority: number): PriorityLevel {
+  if (priority >= 100) return "emergency";
+  if (priority >= 50) return "campaign";
+  if (priority >= 10) return "default";
+  return "fallback";
+}
+
 export interface ScheduleRule {
   id: string;
   name: string;
@@ -8,6 +25,11 @@ export interface ScheduleRule {
   priority: number; // higher = overrides lower
   zoneIds: string[];
   isClinicContent: boolean;
+  // --- New fields (Phase 9) ---
+  dateRange?: { startDate: string; endDate: string }; // YYYY-MM-DD
+  screenIds?: string[]; // target specific screens
+  screenGroupIds?: string[]; // target screen groups
+  isEmergency?: boolean; // immediately overrides everything
 }
 
 /**
@@ -38,20 +60,57 @@ function isTimeInRange(now: number, start: number, end: number): boolean {
 }
 
 /**
- * Returns the highest-priority matching schedule for a given zone and time.
- * Returns null if no schedule matches.
+ * Check if a date falls within a date range (inclusive).
  */
-export function getActiveSchedule(
+function isDateInRange(
+  now: Date,
+  range: { startDate: string; endDate: string }
+): boolean {
+  const dateStr = now.toISOString().slice(0, 10); // YYYY-MM-DD
+  return dateStr >= range.startDate && dateStr <= range.endDate;
+}
+
+/**
+ * Returns all matching schedules for a given zone/screen and time,
+ * sorted by priority (highest first).
+ */
+export function getMatchingSchedules(
   rules: ScheduleRule[],
-  zoneId: string,
-  now: Date
-): ScheduleRule | null {
+  options: {
+    zoneId?: string;
+    screenId?: string;
+    now: Date;
+  }
+): ScheduleRule[] {
+  const { zoneId, screenId, now } = options;
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const currentDay = toIsoWeekday(now.getDay());
 
   const matching = rules.filter((rule) => {
-    // Check zone match (empty zoneIds = all zones)
-    if (rule.zoneIds.length > 0 && !rule.zoneIds.includes(zoneId)) {
+    // Emergency rules always match (bypass zone/screen filtering)
+    if (!rule.isEmergency) {
+      // Check zone match (empty zoneIds = all zones)
+      if (
+        rule.zoneIds.length > 0 &&
+        zoneId &&
+        !rule.zoneIds.includes(zoneId)
+      ) {
+        return false;
+      }
+
+      // Check screen match (empty/undefined = all screens)
+      if (
+        rule.screenIds &&
+        rule.screenIds.length > 0 &&
+        screenId &&
+        !rule.screenIds.includes(screenId)
+      ) {
+        return false;
+      }
+    }
+
+    // Check date range (if specified)
+    if (rule.dateRange && !isDateInRange(now, rule.dateRange)) {
       return false;
     }
 
@@ -66,15 +125,62 @@ export function getActiveSchedule(
     return isTimeInRange(currentMinutes, start, end);
   });
 
-  if (matching.length === 0) return null;
+  // Sort: emergency first, then by priority descending
+  matching.sort((a, b) => {
+    if (a.isEmergency && !b.isEmergency) return -1;
+    if (!a.isEmergency && b.isEmergency) return 1;
+    return b.priority - a.priority;
+  });
 
-  // Return highest priority
-  matching.sort((a, b) => b.priority - a.priority);
-  return matching[0];
+  return matching;
 }
 
 /**
- * Mock schedule rules for development — CLC operates two blocks:
+ * Returns the highest-priority matching schedule for a given zone and time.
+ * Returns null if no schedule matches.
+ *
+ * Backwards compatible with Phase 6 usage.
+ */
+export function getActiveSchedule(
+  rules: ScheduleRule[],
+  zoneId: string,
+  now: Date
+): ScheduleRule | null {
+  const matching = getMatchingSchedules(rules, { zoneId, now });
+  return matching.length > 0 ? matching[0] : null;
+}
+
+/**
+ * Test what schedule would be active for a given zone/screen at a given time.
+ * Useful for the "Test Schedule" feature in the UI.
+ */
+export function testScheduleAt(
+  rules: ScheduleRule[],
+  options: {
+    zoneId?: string;
+    screenId?: string;
+    testTime: Date;
+  }
+): {
+  activeSchedule: ScheduleRule | null;
+  allMatching: ScheduleRule[];
+  overriddenSchedules: ScheduleRule[];
+} {
+  const allMatching = getMatchingSchedules(rules, {
+    zoneId: options.zoneId,
+    screenId: options.screenId,
+    now: options.testTime,
+  });
+
+  return {
+    activeSchedule: allMatching[0] ?? null,
+    allMatching,
+    overriddenSchedules: allMatching.slice(1),
+  };
+}
+
+/**
+ * Mock schedule rules for development -- CLC operates two blocks:
  * 1. Clinic content (health tips, wayfinding) during morning hours
  * 2. Advertiser content (ISAPRE, pharma, insurance) during peak traffic
  */
@@ -143,6 +249,83 @@ export function getMockScheduleRules(): ScheduleRule[] {
       endTime: "06:00",
       daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
       priority: 5,
+      zoneIds: [],
+      isClinicContent: true,
+    },
+  ];
+}
+
+/**
+ * Extended mock rules including Phase 9 conditional scheduling features.
+ */
+export function getAdvancedMockScheduleRules(): ScheduleRule[] {
+  return [
+    {
+      id: "adv-001",
+      name: "Emergency Alert",
+      playlistId: "pl-emergency",
+      startTime: "00:00",
+      endTime: "23:59",
+      daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+      priority: PRIORITY_LEVELS.emergency,
+      zoneIds: [],
+      isClinicContent: true,
+      isEmergency: true,
+    },
+    {
+      id: "adv-002",
+      name: "Warner Bros Launch Week",
+      playlistId: "pl-warner-launch",
+      startTime: "09:00",
+      endTime: "21:00",
+      daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+      priority: PRIORITY_LEVELS.campaign,
+      zoneIds: ["zone-lobby", "zone-cafeteria"],
+      isClinicContent: false,
+      dateRange: { startDate: "2026-03-25", endDate: "2026-03-31" },
+    },
+    {
+      id: "adv-003",
+      name: "ISAPRE Colmena Campaign",
+      playlistId: "pl-colmena",
+      startTime: "08:00",
+      endTime: "20:00",
+      daysOfWeek: [1, 2, 3, 4, 5],
+      priority: PRIORITY_LEVELS.campaign,
+      zoneIds: [],
+      isClinicContent: false,
+      screenIds: ["screen-lobby-1", "screen-lobby-2", "screen-hallway-1"],
+    },
+    {
+      id: "adv-004",
+      name: "Morning Clinic Content",
+      playlistId: "pl-clinic-morning",
+      startTime: "07:00",
+      endTime: "12:00",
+      daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+      priority: PRIORITY_LEVELS.default,
+      zoneIds: [],
+      isClinicContent: true,
+    },
+    {
+      id: "adv-005",
+      name: "Afternoon Ads Mix",
+      playlistId: "pl-ads-afternoon",
+      startTime: "12:00",
+      endTime: "18:00",
+      daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+      priority: PRIORITY_LEVELS.default,
+      zoneIds: [],
+      isClinicContent: false,
+    },
+    {
+      id: "adv-006",
+      name: "Night Fallback",
+      playlistId: "pl-night-fallback",
+      startTime: "18:00",
+      endTime: "07:00",
+      daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+      priority: PRIORITY_LEVELS.fallback,
       zoneIds: [],
       isClinicContent: true,
     },
