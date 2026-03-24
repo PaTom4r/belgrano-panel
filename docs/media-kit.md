@@ -111,35 +111,42 @@ Las 70 pantallas están distribuidas en zonas estratégicas de alta permanencia.
 
 ---
 
-## Tarifas y Paquetes
+## Planes y Tarifas
 
-### Pricing Base: CPM (Costo por Mil Impresiones)
+### Tres planes claros — sin letra chica
 
-| Nivel | CPM (CLP) | CPM (USD ref.) | Aplicación |
-|-------|-----------|----------------|------------|
-| Estándar | $4.750 | $5 | Zonas generales, horario completo |
-| Premium | $7.600 | $8 | Zonas de alta permanencia (salas de espera, urgencias) |
-| Ultra Premium | $11.400 | $12 | Segmentación por especialidad + horario prime |
+| | Plan Starter | Plan Intermedio | Plan Business |
+|---|---|---|---|
+| **Precio mensual** | **$5.000.000 CLP** | **$7.000.000 CLP** | **$10.000.000 CLP** |
+| **Pantallas** | 15 pantallas | 35 pantallas | 70 pantallas (toda la red) |
+| **Zonas** | 2 zonas a elegir | 5 zonas a elegir | Todas las zonas |
+| **Spots diarios** | 40 spots de 15s | 80 spots de 15s | 150 spots de 15s |
+| **Formatos** | Video + Imagen | Video + Imagen + HTML5 | Todos los formatos |
+| **Horario** | Horario completo | Horario completo | Horario completo + prime preferente |
+| **Reporte** | Mensual (proof-of-play) | Quincenal | Semanal + dashboard dedicado |
+| **Segmentación por zona** | Básica | Avanzada (por especialidad) | Total (zonas exclusivas disponibles) |
+| **Contenido incluido** | 1 pieza creativa | Hasta 3 piezas | Hasta 6 piezas + rotación |
+| **Contrato mínimo** | 1 mes | 3 meses | 6 meses |
 
-### Paquetes Mensuales
+### ¿Qué incluye cada plan?
 
-| Paquete | Spots/día | Zonas | Impresiones Est./mes | Precio Mensual |
-|---------|-----------|-------|---------------------|----------------|
-| **Starter** | 20 spots de 15s | 2 zonas | ~300.000 | $500.000 CLP |
-| **Growth** | 50 spots de 15s | 4 zonas | ~750.000 | $1.200.000 CLP |
-| **Premium** | 100 spots de 15s | Todas las zonas | ~1.500.000 | $2.500.000 CLP |
-| **Custom** | A medida | A medida | A medida | Según briefing |
+**Starter — $5.000.000 CLP/mes**
+Ideal para probar el medio. Tu marca en 15 pantallas de 2 zonas estratégicas. Incluye proof-of-play mensual y 1 pieza creativa (video o imagen). Sin compromiso largo — contrato mes a mes.
+
+**Intermedio — $7.000.000 CLP/mes**
+Para campañas serias. Presencia en la mitad de la red, 5 zonas, segmentación por especialidad médica. Reportes quincenales y hasta 3 piezas creativas con rotación. Contrato trimestral.
+
+**Business — $10.000.000 CLP/mes**
+Dominio total de la red. Las 70 pantallas, todas las zonas, horarios prime preferentes, hasta 6 piezas creativas con rotación automática, reporte semanal y posibilidad de zonas exclusivas (sin competencia directa en tu zona). Contrato semestral.
 
 ### Descuentos por Compromiso
 
 | Plazo | Descuento |
 |-------|-----------|
-| Trimestral (3 meses) | Sin descuento (tarifa base) |
-| Semestral (6 meses) | -10% |
-| Anual (12 meses) | -15% |
-| Multi-zona (3+ zonas) | -5% adicional |
+| Semestral (6 meses) | -10% sobre tarifa mensual |
+| Anual (12 meses) | -15% sobre tarifa mensual |
 
-> **Piloto disponible:** Campaña de prueba de 1 mes al precio del paquete Starter sin compromiso de continuidad. Ideal para validar el medio.
+> **Piloto disponible:** Campaña de prueba de 1 mes al precio del Plan Starter sin compromiso de continuidad. Ideal para validar el medio antes de comprometerse.
 
 ---
 

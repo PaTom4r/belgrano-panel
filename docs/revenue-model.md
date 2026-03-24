@@ -37,25 +37,21 @@ Belgrano Digital propone transformar las 70 pantallas Samsung de Clínica Las Co
 
 ---
 
-## Modelo de Pricing: CPM (Costo por Mil Impresiones)
+## Modelo de Pricing: Planes Fijos Mensuales
 
-El pricing se basa en CPM, estándar de la industria DOOH. Los CPM para indoor healthcare en Chile son superiores al DOOH genérico por la calidad de la audiencia (ABC1, alta atención, contexto de salud).
+En vez de CPM (que es difícil de explicar a clientes), se ofrecen **3 planes fijos** con precio mensual claro:
 
-| Segmento | CPM Referencia (USD) | CPM Aplicado (USD) | CPM Aplicado (CLP) |
-|----------|---------------------|---------------------|---------------------|
-| DOOH genérico Chile | $3 – $8 | — | — |
-| Indoor healthcare (referencia global) | $8 – $15 | — | — |
-| **CLC — lanzamiento** | — | **$5** | **$4.750** |
-| **CLC — consolidado (6+ meses)** | — | **$8** | **$7.600** |
-| **CLC — premium (12+ meses)** | — | **$12** | **$11.400** |
+| Plan | Precio Mensual | Pantallas | Zonas | Spots/día |
+|------|---------------|-----------|-------|-----------|
+| **Starter** | **$5.000.000 CLP** | 15 | 2 zonas | 40 spots de 15s |
+| **Intermedio** | **$7.000.000 CLP** | 35 | 5 zonas | 80 spots de 15s |
+| **Business** | **$10.000.000 CLP** | 70 (toda la red) | Todas | 150 spots de 15s |
 
-> **Tipo de cambio referencial:** 1 USD = 950 CLP. Los contratos se firman en CLP.
+### Justificación de Precios
 
-### Justificación del CPM
-
-- **$5 CPM (lanzamiento):** Precio de entrada competitivo para construir pipeline. Inferior al benchmark healthcare pero atractivo para primeros anunciantes que validan el medio.
-- **$8 CPM (consolidado):** Precio justo para indoor healthcare con audiencia cautiva ABC1. Comparable a redes DOOH de clínicas en mercados similares (Colombia, Brasil).
-- **$12 CPM (premium):** Aplicable a ubicaciones premium (urgencias, maternidad, oncología) con datos de proof-of-play que respalden el rendimiento. Requiere track record de campañas exitosas.
+- **Starter $5M:** Precio de entrada accesible para gerencias de marketing de ISAPREs y pharma. Comparable a una campaña mensual de redes sociales. Permite probar el medio sin riesgo.
+- **Intermedio $7M:** Para anunciantes que quieren presencia seria. Mitad de la red + segmentación por especialidad. Precio competitivo vs. DOOH urbano en Santiago.
+- **Business $10M:** Para marcas que quieren dominar la red. Todas las pantallas, horario prime, zonas exclusivas. Comparable al costo de una valla publicitaria premium en Santiago por un mes.
 
 ---
 
@@ -89,84 +85,86 @@ Esto da a Belgrano más margen en la fase de ramp-up y premia a CLC conforme el 
 
 ---
 
-## Escenarios de Ingresos por Fill Rate
+## Escenarios de Ingresos por Clientes
 
 ### Supuestos Comunes
 
-- 70 pantallas, 30% tiempo publicitario
-- CPM de lanzamiento: $5 USD ($4.750 CLP)
-- Impresiones potenciales: ~6.000.000/mes (100% fill rate)
+- 3 planes: Starter ($5M), Intermedio ($7M), Business ($10M) CLP/mes
 - Revenue share: 70/30 (CLC/Belgrano)
+- La red soporta múltiples anunciantes simultáneamente (70 pantallas, distintas zonas y horarios)
 
-### Escenario 1: Fill Rate 25% (Conservador — Meses 1-3)
+### Escenario 1: Conservador (Meses 1-3)
 
-*Un par de anunciantes, campañas parciales en zonas seleccionadas.*
-
-| Concepto | Valor |
-|----------|-------|
-| Impresiones vendidas | 1.500.000 |
-| Ingreso bruto | $7.125.000 CLP |
-| CLC (70%) | $4.987.500 CLP |
-| Belgrano (30%) | $2.137.500 CLP |
-
-**Resultado para CLC:** En vez de pagar $2.000.000/mes, recibe $4.987.500/mes. **Swing positivo de $6.987.500 CLP/mes.**
-
-### Escenario 2: Fill Rate 50% (Moderado — Meses 4-6)
-
-*3-5 anunciantes activos, campañas en múltiples zonas.*
+*1 cliente Starter + 1 cliente Starter = 2 clientes*
 
 | Concepto | Valor |
 |----------|-------|
-| Impresiones vendidas | 3.000.000 |
-| Ingreso bruto | $14.250.000 CLP |
-| CLC (70%) | $9.975.000 CLP |
-| Belgrano (30%) | $4.275.000 CLP |
+| Clientes | 2 Starter |
+| Ingreso bruto | $10.000.000 CLP/mes |
+| CLC (70%) | $7.000.000 CLP/mes |
+| Belgrano (30%) | $3.000.000 CLP/mes |
 
-**Resultado para CLC:** Recibe $9.975.000/mes. **Swing positivo de $11.975.000 CLP/mes.**
+**Resultado para CLC:** En vez de pagar $2M/mes, recibe $7M/mes. **Swing positivo de $9.000.000 CLP/mes.**
 
-### Escenario 3: Fill Rate 75% (Optimista — Meses 7-12)
+### Escenario 2: Moderado (Meses 4-6)
 
-*5-8 anunciantes activos, red consolidada con CPM ajustado a $8 USD ($7.600 CLP).*
+*1 Starter + 1 Intermedio + 1 Starter = 3 clientes*
 
 | Concepto | Valor |
 |----------|-------|
-| Impresiones vendidas | 4.500.000 |
-| CPM aplicado | $7.600 CLP ($8 USD) |
-| Ingreso bruto | $34.200.000 CLP |
-| CLC (70%) | $23.940.000 CLP |
-| Belgrano (30%) | $10.260.000 CLP |
+| Clientes | 2 Starter + 1 Intermedio |
+| Ingreso bruto | $17.000.000 CLP/mes |
+| CLC (70%) | $11.900.000 CLP/mes |
+| Belgrano (30%) | $5.100.000 CLP/mes |
 
-**Resultado para CLC:** Recibe $23.940.000/mes. **Swing positivo de $25.940.000 CLP/mes.**
+**Resultado para CLC:** Recibe $11.9M/mes. **Swing positivo de $13.900.000 CLP/mes.**
+
+### Escenario 3: Optimista (Meses 7-12)
+
+*2 Starter + 1 Intermedio + 1 Business = 4 clientes*
+
+| Concepto | Valor |
+|----------|-------|
+| Clientes | 2 Starter + 1 Intermedio + 1 Business |
+| Ingreso bruto | $27.000.000 CLP/mes |
+| CLC (70%) | $18.900.000 CLP/mes |
+| Belgrano (30%) | $8.100.000 CLP/mes |
+
+**Resultado para CLC:** Recibe $18.9M/mes. **Swing positivo de $20.900.000 CLP/mes.**
 
 ---
 
 ## Comparativa vs. Situación Actual
 
-| Concepto | Hoy (proveedor actual) | Con Belgrano (Esc. 25%) | Con Belgrano (Esc. 50%) | Con Belgrano (Esc. 75%) |
-|----------|------------------------|------------------------|------------------------|------------------------|
+| Concepto | Hoy | Conservador (2 clientes) | Moderado (3 clientes) | Optimista (4 clientes) |
+|----------|-----|--------------------------|----------------------|------------------------|
 | Costo mensual CLC | -$2.000.000 | $0 | $0 | $0 |
-| Ingreso mensual CLC | $0 | +$4.987.500 | +$9.975.000 | +$23.940.000 |
-| **Resultado neto CLC** | **-$2.000.000** | **+$4.987.500** | **+$9.975.000** | **+$23.940.000** |
-| Swing vs. hoy | — | +$6.987.500 | +$11.975.000 | +$25.940.000 |
+| Ingreso mensual CLC | $0 | +$7.000.000 | +$11.900.000 | +$18.900.000 |
+| **Resultado neto CLC** | **-$2.000.000** | **+$7.000.000** | **+$11.900.000** | **+$18.900.000** |
+| Swing vs. hoy | — | +$9.000.000 | +$13.900.000 | +$20.900.000 |
 
-> **Mensaje clave para CLC:** Incluso en el escenario más conservador (25% fill rate, CPM mínimo), CLC gana casi $5M/mes en vez de pagar $2M. El riesgo es cero — Belgrano asume toda la inversión operativa y comercial.
+> **Mensaje clave para CLC:** Con solo 2 anunciantes en plan Starter, CLC gana $7M/mes en vez de pagar $2M. El riesgo es cero — Belgrano asume toda la inversión operativa y comercial.
 
 ---
 
 ## Proyección Anual (Primer Año)
 
-Asumiendo ramp-up gradual: 3 meses al 25%, 3 meses al 50%, 6 meses al 75% con CPM incrementado.
+Asumiendo ramp-up gradual: 3 meses con 2 clientes, 3 meses con 3 clientes, 6 meses con 4 clientes.
 
-| Período | Fill Rate | CPM (CLP) | Ingreso Bruto | CLC (70%) | Belgrano (30%) |
-|---------|-----------|-----------|---------------|-----------|----------------|
-| Meses 1-3 | 25% | $4.750 | $21.375.000 | $14.962.500 | $6.412.500 |
-| Meses 4-6 | 50% | $4.750 | $42.750.000 | $29.925.000 | $12.825.000 |
-| Meses 7-12 | 75% | $7.600 | $205.200.000 | $143.640.000 | $61.560.000 |
-| **Total Año 1** | — | — | **$269.325.000** | **$188.527.500** | **$80.797.500** |
+| Período | Clientes | Ingreso Bruto/mes | CLC (70%) | Belgrano (30%) | Meses | Subtotal Bruto |
+|---------|----------|-------------------|-----------|----------------|-------|---------------|
+| Meses 1-3 | 2 Starter | $10.000.000 | $7.000.000 | $3.000.000 | 3 | $30.000.000 |
+| Meses 4-6 | 2 Starter + 1 Intermedio | $17.000.000 | $11.900.000 | $5.100.000 | 3 | $51.000.000 |
+| Meses 7-12 | 2 Starter + 1 Intermedio + 1 Business | $27.000.000 | $18.900.000 | $8.100.000 | 6 | $162.000.000 |
+| **Total Año 1** | — | — | — | — | **12** | **$243.000.000** |
 
-**CLC gana $188.527.500 CLP en el primer año** en vez de pagar $24.000.000 CLP ($2M x 12). Swing anual: **+$212.527.500 CLP.**
+| | CLC (70%) | Belgrano (30%) |
+|---|---|---|
+| **Total Año 1** | **$170.100.000 CLP** | **$72.900.000 CLP** |
 
-**Belgrano gana $80.797.500 CLP en el primer año** — cubre operación, plataforma, y margen para crecer a más venues.
+**CLC gana $170.100.000 CLP en el primer año** en vez de pagar $24.000.000 CLP ($2M x 12). Swing anual: **+$194.100.000 CLP.**
+
+**Belgrano gana $72.900.000 CLP en el primer año** — cubre licencias MagicInfo (~$30M CLP), operación, plataforma, y genera margen.
 
 ---
 
@@ -200,7 +198,9 @@ Para mitigar riesgo de ambas partes, se propone un piloto de 90 días:
 | Prospección comercial | $200.000 CLP |
 | **Total operativo** | **~$1.150.000 CLP** |
 
-**Break-even Belgrano:** Con costos de ~$1.150.000 CLP/mes y un 30% del ingreso bruto → requiere ingreso bruto de ~$3.830.000 CLP/mes → alcanzable con fill rate de ~13%.
+**Break-even Belgrano:** Con costos de ~$1.150.000 CLP/mes y un 30% del ingreso bruto → requiere ingreso bruto de ~$3.830.000 CLP/mes → **alcanzable con 1 solo cliente Starter ($5M bruto → $1.5M para Belgrano, cubre costos).**
+
+**Con licencias nuevas (~$30M CLP inversión inicial):** Se recupera la inversión en ~10 meses con el escenario conservador (Belgrano gana $3M/mes, menos $1.15M costos = $1.85M neto/mes → $30M / $1.85M = ~16 meses). Con escenario moderado, en ~8 meses.
 
 ---
 
