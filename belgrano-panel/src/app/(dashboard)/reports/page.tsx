@@ -206,6 +206,18 @@ export default function ReportsPage() {
       <PageHeader
         title="Reports"
         description="Proof of play, revenue statements, and data exports"
+        actions={
+          <Link
+            href="/reports/live"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+            </span>
+            Live View
+          </Link>
+        }
       />
 
       {/* Tabs */}
