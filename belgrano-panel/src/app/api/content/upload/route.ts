@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
-import { contentItems } from "@/lib/db/schema";
+import { contentItems, playlists, playlistItems } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 import { supabase, getPublicUrl } from "@/lib/supabase";
 
 export async function POST(request: Request) {
@@ -45,6 +46,24 @@ export async function POST(request: Request) {
       approvalStatus: "approved",
       uploadedBy: "admin",
     }).returning();
+
+    // Auto-add to first playlist so it appears on screens immediately
+    try {
+      const firstPlaylist = await db.query.playlists.findFirst();
+      if (firstPlaylist) {
+        const existing = await db.query.playlistItems.findMany({
+          where: eq(playlistItems.playlistId, firstPlaylist.id),
+        });
+        await db.insert(playlistItems).values({
+          playlistId: firstPlaylist.id,
+          contentItemId: item.id,
+          position: existing.length + 1,
+          durationOverride: duration,
+        });
+      }
+    } catch (playlistErr) {
+      console.error("[upload] Auto-add to playlist failed:", playlistErr);
+    }
 
     return Response.json({ ok: true, item });
   } catch (error) {
