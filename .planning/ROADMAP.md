@@ -23,11 +23,11 @@ Milestone v1.1 builds the display engine that replaces MagicInfo entirely. Each 
 
 ### Milestone v1.1 — Display Module + Heartbeat
 
-- [ ] **Phase 6: Display Engine + Content API** - Screen renders fullscreen content from web URL with playlist, schedule, and fallback
-- [ ] **Phase 7: Heartbeat + Registration + Hardware Control** - Screens self-register, send heartbeats, and accept remote commands
-- [ ] **Phase 8: Template Builder / Web Author** - Admin creates multi-zone layouts that screens render with synchronized playback
-- [ ] **Phase 9: Conditional Scheduling + Smart Playlists** - Rules-based scheduling and advertiser-balanced playlist logic active
-- [ ] **Phase 10: Proof-of-Play Integration + Real-Time Updates** - Every content play is logged and schedule changes push live to screens
+- [x] **Phase 6: Display Engine + Content API** - Screen renders fullscreen content from web URL with playlist, schedule, and fallback
+- [x] **Phase 7: Heartbeat + Registration + Hardware Control** - Screens self-register, send heartbeats, and accept remote commands
+- [x] **Phase 8: Template Builder / Web Author** - Admin creates multi-zone layouts that screens render with synchronized playback
+- [x] **Phase 9: Conditional Scheduling + Smart Playlists** - Rules-based scheduling and advertiser-balanced playlist logic active
+- [x] **Phase 10: Proof-of-Play Integration + Real-Time Updates** - Every content play is logged and schedule changes push live to screens
 
 ## Phase Details
 
@@ -173,11 +173,11 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 6. Display Engine + Content API | 0/? | Not started | — |
-| 7. Heartbeat + Registration + Hardware Control | 0/? | Not started | — |
-| 8. Template Builder / Web Author | 0/? | Not started | — |
-| 9. Conditional Scheduling + Smart Playlists | 0/? | Not started | — |
-| 10. Proof-of-Play Integration + Real-Time Updates | 0/? | Not started | — |
+| 6. Display Engine + Content API | 1/1 | Complete | 2026-03-24 |
+| 7. Heartbeat + Registration + Hardware Control | 1/1 | Complete | 2026-03-24 |
+| 8. Template Builder / Web Author | 1/1 | Complete | 2026-03-24 |
+| 9. Conditional Scheduling + Smart Playlists | 1/1 | Complete | 2026-03-24 |
+| 10. Proof-of-Play Integration + Real-Time Updates | 1/1 | Complete | 2026-03-24 |
 
 ---
 *Roadmap created: 2026-03-23*
