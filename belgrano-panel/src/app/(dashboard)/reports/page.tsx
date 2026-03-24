@@ -16,6 +16,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { generateCSV, downloadCSV, generatePDFPlaceholder } from "@/lib/export";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card, CardHeader } from "@/components/ui/card";
+import { StatCard } from "@/components/ui/stat-card";
+import { Badge } from "@/components/ui/badge";
+import { CHART_COLORS } from "@/lib/constants";
 
 // --- Mock Data ---
 
@@ -99,8 +104,6 @@ function generatePlayLogData() {
 
   return logs;
 }
-
-const COLORS = ["#2563eb", "#10b981", "#f59e0b", "#475569", "#ef4444", "#8b5cf6", "#ec4899", "#06b6d4", "#84cc16", "#f97316"];
 
 type TabType = "proof-of-play" | "revenue" | "export";
 
@@ -196,15 +199,17 @@ export default function ReportsPage() {
     { key: "export", label: "Export Options" },
   ];
 
+  const inputClass = "w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:outline-none transition-colors";
+
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Reports</h1>
-        <p className="mt-1 text-sm text-gray-500">Proof of play, revenue statements, and data exports</p>
-      </div>
+      <PageHeader
+        title="Reports"
+        description="Proof of play, revenue statements, and data exports"
+      />
 
       {/* Tabs */}
-      <div className="mb-6 border-b border-gray-200">
+      <div className="mb-6 border-b border-slate-200">
         <nav className="-mb-px flex gap-6">
           {tabs.map((tab) => (
             <button
@@ -213,7 +218,7 @@ export default function ReportsPage() {
               className={`border-b-2 pb-3 text-sm font-medium transition-colors ${
                 activeTab === tab.key
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700"
               }`}
             >
               {tab.label}
@@ -226,33 +231,33 @@ export default function ReportsPage() {
       {activeTab === "proof-of-play" && (
         <div className="space-y-6">
           {/* Filters */}
-          <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-            <h3 className="text-sm font-semibold text-gray-700 mb-4">Filters</h3>
+          <Card>
+            <CardHeader title="Filters" />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Start Date</label>
+                <label className="block text-xs font-medium text-slate-500 mb-1">Start Date</label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">End Date</label>
+                <label className="block text-xs font-medium text-slate-500 mb-1">End Date</label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Campaign</label>
+                <label className="block text-xs font-medium text-slate-500 mb-1">Campaign</label>
                 <select
                   value={selectedCampaign}
                   onChange={(e) => setSelectedCampaign(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className={inputClass}
                 >
                   <option value="all">All Campaigns</option>
                   {campaigns.map((c) => (
@@ -263,11 +268,11 @@ export default function ReportsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Zone</label>
+                <label className="block text-xs font-medium text-slate-500 mb-1">Zone</label>
                 <select
                   value={selectedZone}
                   onChange={(e) => setSelectedZone(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className={inputClass}
                 >
                   <option value="all">All Zones</option>
                   {zones.map((z) => (
@@ -278,209 +283,200 @@ export default function ReportsPage() {
                 </select>
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Summary Stats */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-              <p className="text-sm font-medium text-gray-500">Total Plays</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{summaryStats.totalPlays.toLocaleString("es-CL")}</p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-              <p className="text-sm font-medium text-gray-500">Unique Screens</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{summaryStats.uniqueScreens}</p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-              <p className="text-sm font-medium text-gray-500">Total Hours Played</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{summaryStats.totalHours}</p>
-            </div>
+            <StatCard label="Total Plays" value={summaryStats.totalPlays.toLocaleString("es-CL")} color="blue" />
+            <StatCard label="Unique Screens" value={summaryStats.uniqueScreens} color="emerald" />
+            <StatCard label="Total Hours Played" value={summaryStats.totalHours} color="purple" />
           </div>
 
           {/* Charts */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* Plays per Day */}
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Plays per Day</h3>
+            <Card>
+              <CardHeader title="Plays per Day" />
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={playsPerDay}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                   <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  <Bar dataKey="plays" fill="#2563eb" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="plays" fill={CHART_COLORS[0]} radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
-            </div>
+            </Card>
 
             {/* Plays by Zone */}
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Plays by Zone</h3>
+            <Card>
+              <CardHeader title="Plays by Zone" />
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie data={playsByZone} cx="50%" cy="50%" outerRadius={100} dataKey="value" label={({ name, percent }: { name?: string; percent?: number }) => `${(name ?? "").split(" ")[0]} ${((percent ?? 0) * 100).toFixed(0)}%`}>
                     {playsByZone.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
-            </div>
+            </Card>
           </div>
 
           {/* Plays by Campaign (horizontal bar) */}
-          <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Plays by Campaign</h3>
+          <Card>
+            <CardHeader title="Plays by Campaign" />
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={playsByCampaign} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis type="number" tick={{ fontSize: 12 }} />
                 <YAxis type="category" dataKey="name" width={180} tick={{ fontSize: 11 }} />
                 <Tooltip />
-                <Bar dataKey="plays" fill="#10b981" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="plays" fill={CHART_COLORS[1]} radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+          </Card>
 
           {/* Export Buttons */}
           <div className="flex gap-3">
             <button
               onClick={handleExportCSV}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               Export CSV
             </button>
             <button
               onClick={generatePDFPlaceholder}
-              className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors"
             >
               Export PDF
             </button>
           </div>
 
           {/* Results Table */}
-          <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-900">Play Log Details</h3>
-              <p className="text-sm text-gray-500 mt-1">Showing {Math.min(tableData.length, 50)} of {tableData.length} entries</p>
+          <Card padding="p-0">
+            <div className="px-6 py-4 border-b border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-900">Play Log Details</h3>
+              <p className="text-sm text-slate-500 mt-1">Showing {Math.min(tableData.length, 50)} of {tableData.length} entries</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-50 text-left">
-                    <th className="px-6 py-3 font-medium text-gray-500">Date</th>
-                    <th className="px-6 py-3 font-medium text-gray-500">Screen</th>
-                    <th className="px-6 py-3 font-medium text-gray-500">Content</th>
-                    <th className="px-6 py-3 font-medium text-gray-500">Campaign</th>
-                    <th className="px-6 py-3 font-medium text-gray-500 text-right">Plays</th>
-                    <th className="px-6 py-3 font-medium text-gray-500 text-right">Duration</th>
+                  <tr className="bg-slate-50 text-left">
+                    <th className="px-6 py-3 font-medium text-slate-500">Date</th>
+                    <th className="px-6 py-3 font-medium text-slate-500">Screen</th>
+                    <th className="px-6 py-3 font-medium text-slate-500">Content</th>
+                    <th className="px-6 py-3 font-medium text-slate-500">Campaign</th>
+                    <th className="px-6 py-3 font-medium text-slate-500 text-right">Plays</th>
+                    <th className="px-6 py-3 font-medium text-slate-500 text-right">Duration</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-slate-100">
                   {tableData.slice(0, 50).map((row, i) => (
-                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
-                      <td className="px-6 py-3 text-gray-900">{row.date}</td>
-                      <td className="px-6 py-3 text-gray-700">{row.screenName}</td>
-                      <td className="px-6 py-3 text-gray-700 truncate max-w-[200px]">{row.contentName}</td>
+                    <tr key={i} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-3 text-slate-900">{row.date}</td>
+                      <td className="px-6 py-3 text-slate-700">{row.screenName}</td>
+                      <td className="px-6 py-3 text-slate-700 truncate max-w-[200px]">{row.contentName}</td>
                       <td className="px-6 py-3">
-                        <Link href={`/reports/campaign/${campaigns.find((c) => c.name === row.campaign)?.id || "camp-1"}`} className="text-blue-600 hover:underline">
+                        <Link href={`/reports/campaign/${campaigns.find((c) => c.name === row.campaign)?.id || "camp-1"}`} className="text-blue-600 hover:underline transition-colors">
                           {row.campaign}
                         </Link>
                       </td>
-                      <td className="px-6 py-3 text-right font-medium text-gray-900">{row.plays.toLocaleString("es-CL")}</td>
-                      <td className="px-6 py-3 text-right text-gray-700">{Math.floor(row.totalDuration / 60)}m {row.totalDuration % 60}s</td>
+                      <td className="px-6 py-3 text-right font-medium text-slate-900">{row.plays.toLocaleString("es-CL")}</td>
+                      <td className="px-6 py-3 text-right text-slate-700">{Math.floor(row.totalDuration / 60)}m {row.totalDuration % 60}s</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </div>
+          </Card>
         </div>
       )}
 
       {/* Revenue Statements Tab */}
       {activeTab === "revenue" && (
         <div className="space-y-6">
-          <div className="rounded-xl bg-white p-8 shadow-sm border border-gray-100 text-center">
+          <Card className="text-center" padding="p-8">
             <div className="mx-auto h-12 w-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
               <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Revenue Statements</h3>
-            <p className="text-sm text-gray-500 mb-4">View detailed monthly revenue breakdowns, advertiser contributions, and share calculations.</p>
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">Revenue Statements</h3>
+            <p className="text-sm text-slate-500 mb-4">View detailed monthly revenue breakdowns, advertiser contributions, and share calculations.</p>
             <Link
               href="/reports/revenue"
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               View Revenue Reports
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
             </Link>
-          </div>
+          </Card>
         </div>
       )}
 
       {/* Export Options Tab */}
       {activeTab === "export" && (
         <div className="space-y-4">
-          <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Data Exports</h3>
+          <Card>
+            <CardHeader title="Data Exports" />
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 p-4">
                 <div>
-                  <p className="font-medium text-gray-900">Proof of Play Report</p>
-                  <p className="text-sm text-gray-500">Complete play logs with screen and campaign data</p>
+                  <p className="font-medium text-slate-900">Proof of Play Report</p>
+                  <p className="text-sm text-slate-500">Complete play logs with screen and campaign data</p>
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={handleExportCSV}
-                    className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
                   >
                     CSV
                   </button>
                   <button
                     onClick={generatePDFPlaceholder}
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
                   >
                     PDF
                   </button>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 p-4">
                 <div>
-                  <p className="font-medium text-gray-900">Revenue Statement</p>
-                  <p className="text-sm text-gray-500">Monthly revenue breakdown by advertiser</p>
+                  <p className="font-medium text-slate-900">Revenue Statement</p>
+                  <p className="text-sm text-slate-500">Monthly revenue breakdown by advertiser</p>
                 </div>
                 <div className="flex gap-2">
                   <Link
                     href="/reports/revenue"
-                    className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
                   >
                     View
                   </Link>
                   <button
                     onClick={generatePDFPlaceholder}
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
                   >
                     PDF
                   </button>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 p-4">
                 <div>
-                  <p className="font-medium text-gray-900">Campaign Reports</p>
-                  <p className="text-sm text-gray-500">Individual campaign proof-of-play details</p>
+                  <p className="font-medium text-slate-900">Campaign Reports</p>
+                  <p className="text-sm text-slate-500">Individual campaign proof-of-play details</p>
                 </div>
                 <div className="flex gap-2">
                   {campaigns.slice(0, 3).map((c) => (
                     <Link
                       key={c.id}
                       href={`/reports/campaign/${c.id}`}
-                      className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 truncate max-w-[120px]"
+                      className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors truncate max-w-[120px]"
                       title={c.name}
                     >
                       {c.name.split(" ").slice(0, 2).join(" ")}
@@ -489,7 +485,7 @@ export default function ReportsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
       )}
     </div>

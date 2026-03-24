@@ -13,8 +13,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { generatePDFPlaceholder } from "@/lib/export";
-
-const clpFormat = new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" });
+import { PageHeader } from "@/components/ui/page-header";
+import { Card, CardHeader } from "@/components/ui/card";
+import { StatCard } from "@/components/ui/stat-card";
+import { CHART_COLORS, clpFormat } from "@/lib/constants";
 
 // --- Mock Revenue Data ---
 
@@ -117,37 +119,36 @@ export default function RevenuePage() {
     [allMonths]
   );
 
-  const formatTooltipValue = (value: number | string | Array<number | string>) => clpFormat.format(Number(value));
-
   return (
     <div>
-      {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Link href="/reports" className="text-sm text-gray-500 hover:text-gray-700">
-              Reports
-            </Link>
-            <span className="text-sm text-gray-400">/</span>
-            <span className="text-sm text-gray-700">Revenue</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Revenue Statements</h1>
-          <p className="mt-1 text-sm text-gray-500">Monthly revenue breakdown and share calculations</p>
-        </div>
-        <button
-          onClick={generatePDFPlaceholder}
-          className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-        >
-          Export Statement PDF
-        </button>
+      {/* Breadcrumb */}
+      <div className="flex items-center gap-2 mb-1">
+        <Link href="/reports" className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
+          Reports
+        </Link>
+        <span className="text-sm text-slate-400">/</span>
+        <span className="text-sm text-slate-700">Revenue</span>
       </div>
+
+      <PageHeader
+        title="Revenue Statements"
+        description="Monthly revenue breakdown and share calculations"
+        actions={
+          <button
+            onClick={generatePDFPlaceholder}
+            className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors"
+          >
+            Export Statement PDF
+          </button>
+        }
+      />
 
       {/* Month Selector */}
       <div className="mb-6">
         <select
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(e.target.value)}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:outline-none transition-colors"
         >
           {allMonths.map((m) => (
             <option key={m.month} value={m.month}>
@@ -159,76 +160,61 @@ export default function RevenuePage() {
 
       {/* Revenue Summary Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 mb-6">
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">{clpFormat.format(currentMonth.totalRevenue)}</p>
-        </div>
-        <div className="rounded-xl bg-blue-50 p-6 shadow-sm border border-blue-100">
-          <p className="text-sm font-medium text-blue-700">CLC Share (30%)</p>
-          <p className="mt-2 text-2xl font-bold text-blue-900">{clpFormat.format(currentMonth.clcShare)}</p>
-        </div>
-        <div className="rounded-xl bg-emerald-50 p-6 shadow-sm border border-emerald-100">
-          <p className="text-sm font-medium text-emerald-700">Belgrano Share (70%)</p>
-          <p className="mt-2 text-2xl font-bold text-emerald-900">{clpFormat.format(currentMonth.belgranoShare)}</p>
-        </div>
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">Total Plays</p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">{currentMonth.totalPlays.toLocaleString("es-CL")}</p>
-        </div>
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">Total Impressions</p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">{currentMonth.totalImpressions.toLocaleString("es-CL")}</p>
-        </div>
+        <StatCard label="Total Revenue" value={clpFormat.format(currentMonth.totalRevenue)} color="slate" />
+        <StatCard label="CLC Share (30%)" value={clpFormat.format(currentMonth.clcShare)} color="blue" />
+        <StatCard label="Belgrano Share (70%)" value={clpFormat.format(currentMonth.belgranoShare)} color="emerald" />
+        <StatCard label="Total Plays" value={currentMonth.totalPlays.toLocaleString("es-CL")} color="purple" />
+        <StatCard label="Total Impressions" value={currentMonth.totalImpressions.toLocaleString("es-CL")} color="amber" />
       </div>
 
       {/* Revenue by Advertiser Table */}
-      <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden mb-6">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900">Revenue by Advertiser</h3>
+      <Card padding="p-0" className="mb-6">
+        <div className="px-6 py-4 border-b border-slate-200">
+          <h3 className="text-lg font-semibold text-slate-900">Revenue by Advertiser</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 text-left">
-                <th className="px-6 py-3 font-medium text-gray-500">Advertiser</th>
-                <th className="px-6 py-3 font-medium text-gray-500">Campaign</th>
-                <th className="px-6 py-3 font-medium text-gray-500 text-right">Plays</th>
-                <th className="px-6 py-3 font-medium text-gray-500 text-right">Impressions</th>
-                <th className="px-6 py-3 font-medium text-gray-500 text-right">Revenue (CLP)</th>
+              <tr className="bg-slate-50 text-left">
+                <th className="px-6 py-3 font-medium text-slate-500">Advertiser</th>
+                <th className="px-6 py-3 font-medium text-slate-500">Campaign</th>
+                <th className="px-6 py-3 font-medium text-slate-500 text-right">Plays</th>
+                <th className="px-6 py-3 font-medium text-slate-500 text-right">Impressions</th>
+                <th className="px-6 py-3 font-medium text-slate-500 text-right">Revenue (CLP)</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-slate-100">
               {currentMonth.advertisers.map((adv, i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
-                  <td className="px-6 py-3 font-medium text-gray-900">{adv.advertiser}</td>
+                <tr key={i} className="hover:bg-slate-50 transition-colors">
+                  <td className="px-6 py-3 font-medium text-slate-900">{adv.advertiser}</td>
                   <td className="px-6 py-3">
-                    <Link href={`/reports/campaign/${adv.campaignId}`} className="text-blue-600 hover:underline">
+                    <Link href={`/reports/campaign/${adv.campaignId}`} className="text-blue-600 hover:underline transition-colors">
                       {adv.campaign}
                     </Link>
                   </td>
-                  <td className="px-6 py-3 text-right text-gray-700">{adv.plays.toLocaleString("es-CL")}</td>
-                  <td className="px-6 py-3 text-right text-gray-700">{adv.impressions.toLocaleString("es-CL")}</td>
-                  <td className="px-6 py-3 text-right font-medium text-gray-900">{clpFormat.format(adv.revenue)}</td>
+                  <td className="px-6 py-3 text-right text-slate-700">{adv.plays.toLocaleString("es-CL")}</td>
+                  <td className="px-6 py-3 text-right text-slate-700">{adv.impressions.toLocaleString("es-CL")}</td>
+                  <td className="px-6 py-3 text-right font-medium text-slate-900">{clpFormat.format(adv.revenue)}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
-              <tr className="bg-gray-100 font-semibold">
-                <td className="px-6 py-3 text-gray-900" colSpan={2}>
+              <tr className="bg-slate-100 font-semibold">
+                <td className="px-6 py-3 text-slate-900" colSpan={2}>
                   Total
                 </td>
-                <td className="px-6 py-3 text-right text-gray-900">{currentMonth.totalPlays.toLocaleString("es-CL")}</td>
-                <td className="px-6 py-3 text-right text-gray-900">{currentMonth.totalImpressions.toLocaleString("es-CL")}</td>
-                <td className="px-6 py-3 text-right text-gray-900">{clpFormat.format(currentMonth.totalRevenue)}</td>
+                <td className="px-6 py-3 text-right text-slate-900">{currentMonth.totalPlays.toLocaleString("es-CL")}</td>
+                <td className="px-6 py-3 text-right text-slate-900">{currentMonth.totalImpressions.toLocaleString("es-CL")}</td>
+                <td className="px-6 py-3 text-right text-slate-900">{clpFormat.format(currentMonth.totalRevenue)}</td>
               </tr>
             </tfoot>
           </table>
         </div>
-      </div>
+      </Card>
 
       {/* Revenue Trend Chart */}
-      <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Trend (Last 6 Months)</h3>
+      <Card>
+        <CardHeader title="Revenue Trend (Last 6 Months)" />
         <ResponsiveContainer width="100%" height={350}>
           <LineChart data={trendData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -239,12 +225,12 @@ export default function RevenuePage() {
             />
             <Tooltip formatter={(value) => clpFormat.format(Number(value))} />
             <Legend />
-            <Line type="monotone" dataKey="revenue" name="Total Revenue" stroke="#2563eb" strokeWidth={2} dot={{ r: 4 }} />
-            <Line type="monotone" dataKey="belgrano" name="Belgrano (70%)" stroke="#10b981" strokeWidth={2} dot={{ r: 4 }} />
-            <Line type="monotone" dataKey="clc" name="CLC (30%)" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="revenue" name="Total Revenue" stroke={CHART_COLORS[0]} strokeWidth={2} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="belgrano" name="Belgrano (70%)" stroke={CHART_COLORS[1]} strokeWidth={2} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="clc" name="CLC (30%)" stroke={CHART_COLORS[2]} strokeWidth={2} dot={{ r: 4 }} />
           </LineChart>
         </ResponsiveContainer>
-      </div>
+      </Card>
     </div>
   );
 }

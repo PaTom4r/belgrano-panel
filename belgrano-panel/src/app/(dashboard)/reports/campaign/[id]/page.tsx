@@ -16,6 +16,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { generateCSV, downloadCSV } from "@/lib/export";
+import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card, CardHeader } from "@/components/ui/card";
+import { StatCard } from "@/components/ui/stat-card";
+import { CHART_COLORS, clpFormat } from "@/lib/constants";
 
 // --- Campaign Data ---
 
@@ -97,14 +102,12 @@ const campaignData: Record<
   },
 };
 
-const COLORS = ["#2563eb", "#10b981", "#f59e0b", "#475569", "#ef4444", "#8b5cf6", "#ec4899", "#06b6d4", "#84cc16", "#f97316"];
-
-const statusColors: Record<string, string> = {
-  active: "bg-green-100 text-green-700",
-  completed: "bg-gray-100 text-gray-700",
-  paused: "bg-amber-100 text-amber-700",
-  draft: "bg-blue-100 text-blue-700",
-  cancelled: "bg-red-100 text-red-700",
+const statusBadgeVariant: Record<string, "draft" | "success" | "warning" | "info" | "error"> = {
+  active: "success",
+  completed: "info",
+  paused: "warning",
+  draft: "draft",
+  cancelled: "error",
 };
 
 function seededRandom(seed: number): number {
@@ -232,9 +235,9 @@ export default function CampaignReportPage() {
   if (!campaign) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">Campaign not found</h2>
-        <p className="text-sm text-gray-500 mb-4">The campaign ID &quot;{campaignId}&quot; does not exist.</p>
-        <Link href="/reports" className="text-blue-600 hover:underline text-sm">
+        <h2 className="text-xl font-semibold text-slate-900 mb-2">Campaign not found</h2>
+        <p className="text-sm text-slate-500 mb-4">The campaign ID &quot;{campaignId}&quot; does not exist.</p>
+        <Link href="/reports" className="text-blue-600 hover:underline text-sm transition-colors">
           Back to Reports
         </Link>
       </div>
@@ -250,97 +253,83 @@ export default function CampaignReportPage() {
 
   return (
     <div>
-      {/* Breadcrumb & Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-1">
-          <Link href="/reports" className="text-sm text-gray-500 hover:text-gray-700">
-            Reports
-          </Link>
-          <span className="text-sm text-gray-400">/</span>
-          <span className="text-sm text-gray-700">Campaign Report</span>
-        </div>
+      {/* Breadcrumb */}
+      <div className="flex items-center gap-2 mb-1">
+        <Link href="/reports" className="text-sm text-slate-500 hover:text-slate-700 transition-colors">
+          Reports
+        </Link>
+        <span className="text-sm text-slate-400">/</span>
+        <span className="text-sm text-slate-700">Campaign Report</span>
+      </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">{campaign.name}</h1>
-            <p className="mt-1 text-sm text-gray-500">{campaign.advertiser}</p>
-          </div>
+      <PageHeader
+        title={campaign.name}
+        description={campaign.advertiser}
+        actions={
           <button
             onClick={handleExportCSV}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors self-start"
+            className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Export CSV
           </button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Campaign Info Header */}
-      <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100 mb-6">
+      <Card className="mb-6">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <div>
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Advertiser</p>
-            <p className="mt-1 text-sm font-medium text-gray-900">{campaign.advertiser}</p>
+            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Advertiser</p>
+            <p className="mt-1 text-sm font-medium text-slate-900">{campaign.advertiser}</p>
           </div>
           <div>
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Period</p>
-            <p className="mt-1 text-sm font-medium text-gray-900">
+            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Period</p>
+            <p className="mt-1 text-sm font-medium text-slate-900">
               {new Date(campaign.startDate + "T12:00:00").toLocaleDateString("es-CL")} - {new Date(campaign.endDate + "T12:00:00").toLocaleDateString("es-CL")}
             </p>
           </div>
           <div>
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</p>
-            <span className={`mt-1 inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColors[campaign.status] || "bg-gray-100 text-gray-700"}`}>
-              {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
-            </span>
+            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Status</p>
+            <div className="mt-1">
+              <Badge variant={statusBadgeVariant[campaign.status] || "draft"}>
+                {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
+              </Badge>
+            </div>
           </div>
           <div>
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Target Zones</p>
-            <p className="mt-1 text-sm font-medium text-gray-900">{campaign.targetZones.length} zones</p>
+            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Target Zones</p>
+            <p className="mt-1 text-sm font-medium text-slate-900">{campaign.targetZones.length} zones</p>
           </div>
         </div>
-      </div>
+      </Card>
 
       {/* KPIs */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">Total Plays</p>
-          <p className="mt-2 text-3xl font-bold text-gray-900">{reportData.totalPlays.toLocaleString("es-CL")}</p>
-        </div>
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">Unique Screens</p>
-          <p className="mt-2 text-3xl font-bold text-gray-900">{reportData.uniqueScreens}</p>
-        </div>
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">Est. Impressions</p>
-          <p className="mt-2 text-3xl font-bold text-gray-900">{reportData.estimatedImpressions.toLocaleString("es-CL")}</p>
-        </div>
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <p className="text-sm font-medium text-gray-500">CPM Achieved</p>
-          <p className="mt-2 text-3xl font-bold text-gray-900">
-            {new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(reportData.cpmAchieved)}
-          </p>
-        </div>
+        <StatCard label="Total Plays" value={reportData.totalPlays.toLocaleString("es-CL")} color="blue" />
+        <StatCard label="Unique Screens" value={reportData.uniqueScreens} color="emerald" />
+        <StatCard label="Est. Impressions" value={reportData.estimatedImpressions.toLocaleString("es-CL")} color="purple" />
+        <StatCard label="CPM Achieved" value={clpFormat.format(reportData.cpmAchieved)} color="amber" />
       </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
         {/* Daily Plays */}
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Daily Plays</h3>
+        <Card>
+          <CardHeader title="Daily Plays" />
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={reportData.dailyPlays}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis dataKey="date" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="plays" fill="#2563eb" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="plays" fill={CHART_COLORS[0]} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </Card>
 
         {/* Plays by Zone */}
-        <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Plays by Zone</h3>
+        <Card>
+          <CardHeader title="Plays by Zone" />
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -352,58 +341,54 @@ export default function CampaignReportPage() {
                 label={({ name, percent }: { name?: string; percent?: number }) => `${(name ?? "").split(" ")[0]} ${((percent ?? 0) * 100).toFixed(0)}%`}
               >
                 {reportData.zoneBreakdown.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-        </div>
+        </Card>
       </div>
 
       {/* Play Log Table */}
-      <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900">Play Log</h3>
-          <p className="text-sm text-gray-500 mt-1">
+      <Card padding="p-0">
+        <div className="px-6 py-4 border-b border-slate-200">
+          <h3 className="text-lg font-semibold text-slate-900">Play Log</h3>
+          <p className="text-sm text-slate-500 mt-1">
             Showing {Math.min(reportData.playLogs.length, 100)} of {reportData.playLogs.length} sample entries
           </p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 text-left">
-                <th className="px-6 py-3 font-medium text-gray-500">Date</th>
-                <th className="px-6 py-3 font-medium text-gray-500">Time</th>
-                <th className="px-6 py-3 font-medium text-gray-500">Screen</th>
-                <th className="px-6 py-3 font-medium text-gray-500">Zone</th>
-                <th className="px-6 py-3 font-medium text-gray-500 text-right">Duration</th>
-                <th className="px-6 py-3 font-medium text-gray-500">Status</th>
+              <tr className="bg-slate-50 text-left">
+                <th className="px-6 py-3 font-medium text-slate-500">Date</th>
+                <th className="px-6 py-3 font-medium text-slate-500">Time</th>
+                <th className="px-6 py-3 font-medium text-slate-500">Screen</th>
+                <th className="px-6 py-3 font-medium text-slate-500">Zone</th>
+                <th className="px-6 py-3 font-medium text-slate-500 text-right">Duration</th>
+                <th className="px-6 py-3 font-medium text-slate-500">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-slate-100">
               {reportData.playLogs.slice(0, 100).map((log, i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
-                  <td className="px-6 py-3 text-gray-900">{log.date}</td>
-                  <td className="px-6 py-3 text-gray-700">{log.time}</td>
-                  <td className="px-6 py-3 text-gray-700">{log.screen}</td>
-                  <td className="px-6 py-3 text-gray-700">{log.zone}</td>
-                  <td className="px-6 py-3 text-right text-gray-700">{log.duration}s</td>
+                <tr key={i} className="hover:bg-slate-50 transition-colors">
+                  <td className="px-6 py-3 text-slate-900">{log.date}</td>
+                  <td className="px-6 py-3 text-slate-700">{log.time}</td>
+                  <td className="px-6 py-3 text-slate-700">{log.screen}</td>
+                  <td className="px-6 py-3 text-slate-700">{log.zone}</td>
+                  <td className="px-6 py-3 text-right text-slate-700">{log.duration}s</td>
                   <td className="px-6 py-3">
-                    <span
-                      className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-                        log.status === "Completed" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
-                      }`}
-                    >
+                    <Badge variant={log.status === "Completed" ? "success" : "warning"}>
                       {log.status}
-                    </span>
+                    </Badge>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

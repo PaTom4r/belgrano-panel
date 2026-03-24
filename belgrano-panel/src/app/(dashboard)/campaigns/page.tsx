@@ -2,6 +2,10 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/ui/page-header";
+import { StatCard } from "@/components/ui/stat-card";
+import { clpFormat } from "@/lib/constants";
 
 type Campaign = {
   id: string;
@@ -126,16 +130,13 @@ const mockCampaigns: Campaign[] = [
 
 const statuses = ["All", "draft", "active", "paused", "completed", "cancelled"] as const;
 
-const statusColors: Record<string, string> = {
-  draft: "bg-slate-100 text-slate-700",
-  active: "bg-emerald-100 text-emerald-800",
-  paused: "bg-amber-100 text-amber-800",
-  completed: "bg-blue-100 text-blue-800",
-  cancelled: "bg-red-100 text-red-800",
+const statusBadgeVariant: Record<string, "draft" | "success" | "warning" | "info" | "error"> = {
+  draft: "draft",
+  active: "success",
+  paused: "warning",
+  completed: "info",
+  cancelled: "error",
 };
-
-const formatCLP = (value: number) =>
-  new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(value);
 
 export default function CampaignsPage() {
   const [search, setSearch] = useState("");
@@ -158,42 +159,27 @@ export default function CampaignsPage() {
   const completedCampaigns = mockCampaigns.filter((c) => c.status === "completed").length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">Campaigns</h1>
-            <p className="mt-1 text-sm text-gray-500">
-              Manage advertising campaigns and content scheduling
-            </p>
-          </div>
-          <Link
-            href="/campaigns/new"
-            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
-          >
-            Create Campaign
-          </Link>
-        </div>
+        <PageHeader
+          title="Campaigns"
+          description="Manage advertising campaigns and content scheduling"
+          actions={
+            <Link
+              href="/campaigns/new"
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              Create Campaign
+            </Link>
+          }
+        />
 
         {/* Stats Bar */}
         <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
-            <p className="text-sm font-medium text-gray-500">Total Campaigns</p>
-            <p className="mt-1 text-2xl font-bold text-slate-900">{totalCampaigns}</p>
-          </div>
-          <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
-            <p className="text-sm font-medium text-gray-500">Active</p>
-            <p className="mt-1 text-2xl font-bold text-emerald-600">{activeCampaigns}</p>
-          </div>
-          <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
-            <p className="text-sm font-medium text-gray-500">Draft</p>
-            <p className="mt-1 text-2xl font-bold text-slate-600">{draftCampaigns}</p>
-          </div>
-          <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
-            <p className="text-sm font-medium text-gray-500">Completed</p>
-            <p className="mt-1 text-2xl font-bold text-blue-600">{completedCampaigns}</p>
-          </div>
+          <StatCard label="Total Campaigns" value={totalCampaigns} color="slate" />
+          <StatCard label="Active" value={activeCampaigns} color="emerald" />
+          <StatCard label="Draft" value={draftCampaigns} color="slate" />
+          <StatCard label="Completed" value={completedCampaigns} color="blue" />
         </div>
 
         {/* Filters */}
@@ -203,17 +189,17 @@ export default function CampaignsPage() {
             placeholder="Search by campaign or advertiser..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none sm:max-w-xs"
+            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:outline-none transition-colors sm:max-w-xs"
           />
           <div className="flex flex-wrap gap-2">
             {statuses.map((st) => (
               <button
                 key={st}
                 onClick={() => setStatusFilter(st)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium capitalize transition ${
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
                   statusFilter === st
                     ? "bg-blue-600 text-white"
-                    : "bg-white text-gray-600 ring-1 ring-gray-200 hover:bg-gray-50"
+                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
                 }`}
               >
                 {st}
@@ -223,61 +209,59 @@ export default function CampaignsPage() {
         </div>
 
         {/* Table */}
-        <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200">
+        <div className="overflow-hidden rounded-xl bg-white shadow-sm border border-slate-200">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-slate-200">
+              <thead className="bg-slate-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Campaign
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Advertiser
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Dates
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Zones
                   </th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Daily Freq
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Budget
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {filtered.map((campaign) => (
-                  <tr key={campaign.id} className="hover:bg-gray-50 transition">
+                  <tr key={campaign.id} className="hover:bg-slate-50 transition-colors">
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
                         href={`/campaigns/${campaign.id}`}
-                        className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                        className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
                       >
                         {campaign.name}
                       </Link>
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-700">
                       <Link
                         href={`/advertisers/${campaign.advertiserId}`}
-                        className="hover:text-blue-600"
+                        className="hover:text-blue-600 transition-colors"
                       >
                         {campaign.advertiserName}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      <span
-                        className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${statusColors[campaign.status]}`}
-                      >
+                      <Badge variant={statusBadgeVariant[campaign.status]}>
                         {campaign.status}
-                      </span>
+                      </Badge>
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
                       {campaign.startDate} &mdash; {campaign.endDate}
                     </td>
                     <td className="px-6 py-4">
@@ -285,29 +269,29 @@ export default function CampaignsPage() {
                         {campaign.targetZones.slice(0, 2).map((zone) => (
                           <span
                             key={zone}
-                            className="inline-flex rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600"
+                            className="inline-flex rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600"
                           >
                             {zone}
                           </span>
                         ))}
                         {campaign.targetZones.length > 2 && (
-                          <span className="inline-flex rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500">
+                          <span className="inline-flex rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-500">
                             +{campaign.targetZones.length - 2}
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-center text-sm font-medium text-gray-900">
+                    <td className="whitespace-nowrap px-6 py-4 text-center text-sm font-medium text-slate-900">
                       {campaign.dailyFrequency}x
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-gray-900">
-                      {formatCLP(campaign.budgetCLP)}
+                    <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-slate-900">
+                      {clpFormat.format(campaign.budgetCLP)}
                     </td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-sm text-gray-400">
+                    <td colSpan={7} className="px-6 py-12 text-center text-sm text-slate-400">
                       No campaigns found matching your criteria
                     </td>
                   </tr>
