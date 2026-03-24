@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { use } from "react";
 import Link from "next/link";
 import type { MagicInfoDevice } from "@/lib/magicinfo/types";
+import { StatusDot } from "@/components/ui/status-dot";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 
 export default function ScreenDetailPage({
   params,
@@ -48,7 +51,7 @@ export default function ScreenDetailPage({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <p className="text-gray-500">Loading screen details...</p>
+        <p className="text-slate-500">Loading screen details...</p>
       </div>
     );
   }
@@ -56,10 +59,10 @@ export default function ScreenDetailPage({
   if (!device) {
     return (
       <div className="py-20 text-center">
-        <p className="text-gray-500">Screen not found.</p>
+        <p className="text-slate-500">Screen not found.</p>
         <Link
           href="/screens"
-          className="mt-4 inline-block text-sm text-blue-600 hover:underline"
+          className="mt-4 inline-block text-sm text-blue-600 hover:underline transition-colors"
         >
           Back to screens
         </Link>
@@ -77,8 +80,18 @@ export default function ScreenDetailPage({
     { label: "IP Address", value: device.ipAddress },
     { label: "MAC Address", value: device.macAddress },
     { label: "Firmware", value: device.firmwareVersion },
-    { label: "Resolution", value: device.resolution },
-    { label: "Orientation", value: device.displayOrientation },
+    {
+      label: "Resolution",
+      value: device.resolution,
+      badge: true,
+      badgeVariant: "info" as const,
+    },
+    {
+      label: "Orientation",
+      value: device.displayOrientation,
+      badge: true,
+      badgeVariant: "purple" as const,
+    },
     { label: "Zone", value: device.groupName },
     {
       label: "Last Connection",
@@ -91,7 +104,7 @@ export default function ScreenDetailPage({
       <div className="mb-6">
         <Link
           href="/screens"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
+          className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 transition-colors"
         >
           <svg
             className="h-4 w-4"
@@ -110,61 +123,60 @@ export default function ScreenDetailPage({
         </Link>
       </div>
 
-      <div className="rounded-xl bg-white shadow-sm border border-gray-100">
+      <Card padding="p-0">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 p-6">
+        <div className="flex items-center justify-between border-b border-slate-200 p-6">
           <div className="flex items-center gap-3">
-            <div
-              className={`h-3 w-3 rounded-full ${
-                isOnline ? "bg-green-500" : "bg-red-500"
-              }`}
+            <StatusDot
+              status={isOnline ? "online" : "offline"}
+              size="lg"
             />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">
+              <h1 className="text-xl font-bold text-slate-900">
                 {device.deviceName}
               </h1>
-              <p className="text-sm text-gray-500">{device.deviceModelName}</p>
+              <p className="text-sm text-slate-500">{device.deviceModelName}</p>
             </div>
           </div>
-          <span
-            className={`rounded-full px-3 py-1 text-sm font-medium ${
-              isOnline
-                ? "bg-green-50 text-green-700"
-                : "bg-red-50 text-red-700"
-            }`}
-          >
+          <Badge variant={isOnline ? "success" : "error"}>
             {isOnline ? "Online" : "Offline"}
-          </span>
+          </Badge>
         </div>
 
         {/* Details grid */}
-        <div className="grid grid-cols-1 gap-px bg-gray-100 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px bg-slate-100 sm:grid-cols-2 lg:grid-cols-3">
           {fields.map((f) => (
             <div key={f.label} className="bg-white p-4">
-              <dt className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <dt className="text-xs font-medium text-slate-400 uppercase tracking-wider">
                 {f.label}
               </dt>
-              <dd className="mt-1 text-sm text-gray-900">{f.value}</dd>
+              <dd className="mt-1 text-sm text-slate-900">
+                {f.badge ? (
+                  <Badge variant={f.badgeVariant}>{f.value}</Badge>
+                ) : (
+                  f.value
+                )}
+              </dd>
             </div>
           ))}
         </div>
 
         {/* Actions */}
-        <div className="border-t border-gray-100 p-6">
+        <div className="border-t border-slate-200 p-6">
           <div className="flex items-center gap-3">
             <button
               onClick={handleRestart}
               disabled={restarting}
-              className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+              className="rounded-lg bg-amber-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-amber-600 transition-colors focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed outline-none"
             >
               {restarting ? "Restarting..." : "Restart Screen"}
             </button>
             {restartResult && (
-              <span className="text-sm text-gray-600">{restartResult}</span>
+              <span className="text-sm text-slate-600">{restartResult}</span>
             )}
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

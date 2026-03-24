@@ -76,7 +76,7 @@ export default function DashboardLayout({
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -88,7 +88,7 @@ export default function DashboardLayout({
         }`}
       >
         <div className="flex h-16 items-center gap-2 px-6 border-b border-slate-700">
-          <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
+          <div className="h-8 w-8 rounded-xl bg-blue-600 shadow-md flex items-center justify-center">
             <span className="text-white font-bold text-sm">B</span>
           </div>
           <span className="text-lg font-semibold text-white">Belgrano</span>
@@ -101,9 +101,9 @@ export default function DashboardLayout({
                 <Link
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 outline-none ${
                     isActive(item.href)
-                      ? "bg-blue-600 text-white"
+                      ? "bg-slate-800 text-white"
                       : "text-slate-300 hover:bg-slate-800 hover:text-white"
                   }`}
                 >
@@ -131,10 +131,10 @@ export default function DashboardLayout({
       {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Header */}
-        <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 lg:px-6">
+        <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-6">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 lg:hidden"
+            className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 transition-colors lg:hidden"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -142,7 +142,7 @@ export default function DashboardLayout({
           </button>
 
           <div className="hidden lg:block">
-            <h2 className="text-sm font-medium text-gray-500">
+            <h2 className="text-sm font-medium text-slate-500">
               CLC Digital Signage
             </h2>
           </div>
@@ -150,7 +150,7 @@ export default function DashboardLayout({
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push("/login")}
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
             >
               Sign out
             </button>
@@ -158,7 +158,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 lg:p-6">
+        <main className="flex-1 overflow-y-auto bg-slate-50 p-4 lg:p-6">
           {children}
         </main>
       </div>

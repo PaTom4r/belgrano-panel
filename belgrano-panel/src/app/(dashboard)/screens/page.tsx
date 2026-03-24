@@ -3,6 +3,10 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import type { MagicInfoDevice } from "@/lib/magicinfo/types";
+import { StatusDot } from "@/components/ui/status-dot";
+import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card } from "@/components/ui/card";
 
 export default function ScreensPage() {
   const [devices, setDevices] = useState<MagicInfoDevice[]>([]);
@@ -44,40 +48,38 @@ export default function ScreensPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <p className="text-gray-500">Loading screens...</p>
+        <p className="text-slate-500">Loading screens...</p>
       </div>
     );
   }
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Screens</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Manage and monitor all digital signage displays
-        </p>
-      </div>
+      <PageHeader
+        title="Screens"
+        description="Manage and monitor all digital signage displays"
+      />
 
       {/* Stats bar */}
       <div className="mb-6 grid grid-cols-3 gap-4">
-        <div className="rounded-lg bg-white p-4 shadow-sm border border-gray-100">
-          <p className="text-sm text-gray-500">Total Screens</p>
-          <p className="text-2xl font-bold text-gray-900">{devices.length}</p>
-        </div>
-        <div className="rounded-lg bg-white p-4 shadow-sm border border-gray-100">
+        <Card padding="p-4">
+          <p className="text-sm text-slate-500">Total Screens</p>
+          <p className="text-2xl font-bold text-slate-900">{devices.length}</p>
+        </Card>
+        <Card padding="p-4">
           <div className="flex items-center gap-2">
-            <div className="h-2.5 w-2.5 rounded-full bg-green-500" />
-            <p className="text-sm text-gray-500">Online</p>
+            <StatusDot status="online" />
+            <p className="text-sm text-slate-500">Online</p>
           </div>
-          <p className="text-2xl font-bold text-green-600">{onlineCount}</p>
-        </div>
-        <div className="rounded-lg bg-white p-4 shadow-sm border border-gray-100">
+          <p className="text-2xl font-bold text-emerald-600">{onlineCount}</p>
+        </Card>
+        <Card padding="p-4">
           <div className="flex items-center gap-2">
-            <div className="h-2.5 w-2.5 rounded-full bg-red-500" />
-            <p className="text-sm text-gray-500">Offline</p>
+            <StatusDot status="offline" pulse={false} />
+            <p className="text-sm text-slate-500">Offline</p>
           </div>
           <p className="text-2xl font-bold text-red-600">{offlineCount}</p>
-        </div>
+        </Card>
       </div>
 
       {/* Filters */}
@@ -87,12 +89,12 @@ export default function ScreensPage() {
           placeholder="Search by name or model..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none transition-shadow"
         />
         <select
           value={zoneFilter}
           onChange={(e) => setZoneFilter(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none transition-shadow"
         >
           <option value="all">All Zones</option>
           {zones.map((z) => (
@@ -111,47 +113,42 @@ export default function ScreensPage() {
             <Link
               key={device.deviceId}
               href={`/screens/${device.deviceId}`}
-              className="group rounded-xl bg-white p-4 shadow-sm border border-gray-100 transition-shadow hover:shadow-md"
+              className="group rounded-xl bg-white p-4 shadow-sm border border-slate-200 transition-shadow hover:shadow-md"
             >
               <div className="flex items-start justify-between">
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-sm font-semibold text-gray-900 truncate group-hover:text-blue-600">
+                  <h3 className="text-sm font-semibold text-slate-900 truncate group-hover:text-blue-600 transition-colors">
                     {device.deviceName}
                   </h3>
-                  <p className="mt-0.5 text-xs text-gray-500">
+                  <p className="mt-0.5 text-xs text-slate-500">
                     {device.deviceModelName}
                   </p>
                 </div>
-                <div
-                  className={`ml-2 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
-                    isOnline ? "bg-green-500" : "bg-red-500"
-                  }`}
-                  title={isOnline ? "Online" : "Offline"}
-                />
+                <div className="ml-2 flex-shrink-0">
+                  <StatusDot
+                    status={isOnline ? "online" : "offline"}
+                  />
+                </div>
               </div>
 
               <div className="mt-3 space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-400">Zone</span>
-                  <span className="text-gray-600">{device.groupName}</span>
+                  <span className="text-slate-400">Zone</span>
+                  <span className="text-slate-600">{device.groupName}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-400">Resolution</span>
-                  <span className="text-gray-600">{device.resolution}</span>
+                  <span className="text-slate-400">Resolution</span>
+                  <span className="text-slate-600">{device.resolution}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-400">Status</span>
-                  <span
-                    className={`font-medium ${
-                      isOnline ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
+                  <span className="text-slate-400">Status</span>
+                  <Badge variant={isOnline ? "success" : "error"}>
                     {isOnline ? "Online" : "Offline"}
-                  </span>
+                  </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-400">Last seen</span>
-                  <span className="text-gray-600">
+                  <span className="text-slate-400">Last seen</span>
+                  <span className="text-slate-600">
                     {new Date(device.lastConnectionTime).toLocaleString()}
                   </span>
                 </div>
@@ -163,7 +160,7 @@ export default function ScreensPage() {
 
       {filtered.length === 0 && (
         <div className="py-12 text-center">
-          <p className="text-gray-500">No screens match your filters.</p>
+          <p className="text-slate-500">No screens match your filters.</p>
         </div>
       )}
     </div>
