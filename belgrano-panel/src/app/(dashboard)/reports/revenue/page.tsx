@@ -88,8 +88,8 @@ function generateMonthlyData(): MonthlyData[] {
       month: monthStr,
       label: monthLabel,
       totalRevenue,
-      clcShare: Math.round(totalRevenue * 0.3),
-      belgranoShare: Math.round(totalRevenue * 0.7),
+      clcShare: Math.round(totalRevenue * 0.7),
+      belgranoShare: Math.round(totalRevenue * 0.3),
       totalPlays,
       totalImpressions,
       advertisers,
@@ -161,8 +161,8 @@ export default function RevenuePage() {
       {/* Revenue Summary Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 mb-6">
         <StatCard label="Total Revenue" value={clpFormat.format(currentMonth.totalRevenue)} color="slate" />
-        <StatCard label="CLC Share (30%)" value={clpFormat.format(currentMonth.clcShare)} color="blue" />
-        <StatCard label="Belgrano Share (70%)" value={clpFormat.format(currentMonth.belgranoShare)} color="emerald" />
+        <StatCard label="CLC Share (70%)" value={clpFormat.format(currentMonth.clcShare)} color="blue" />
+        <StatCard label="Belgrano Share (30%)" value={clpFormat.format(currentMonth.belgranoShare)} color="emerald" />
         <StatCard label="Total Plays" value={currentMonth.totalPlays.toLocaleString("es-CL")} color="purple" />
         <StatCard label="Total Impressions" value={currentMonth.totalImpressions.toLocaleString("es-CL")} color="amber" />
       </div>
@@ -226,8 +226,8 @@ export default function RevenuePage() {
             <Tooltip formatter={(value) => clpFormat.format(Number(value))} />
             <Legend />
             <Line type="monotone" dataKey="revenue" name="Total Revenue" stroke={CHART_COLORS[0]} strokeWidth={2} dot={{ r: 4 }} />
-            <Line type="monotone" dataKey="belgrano" name="Belgrano (70%)" stroke={CHART_COLORS[1]} strokeWidth={2} dot={{ r: 4 }} />
-            <Line type="monotone" dataKey="clc" name="CLC (30%)" stroke={CHART_COLORS[2]} strokeWidth={2} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="clc" name="CLC (70%)" stroke={CHART_COLORS[1]} strokeWidth={2} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="belgrano" name="Belgrano (30%)" stroke={CHART_COLORS[2]} strokeWidth={2} dot={{ r: 4 }} />
           </LineChart>
         </ResponsiveContainer>
       </Card>

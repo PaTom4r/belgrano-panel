@@ -22,7 +22,7 @@ Create the commercial foundation documents that Belgrano needs before any techni
    - 70 screens, 6,000 daily visitors parameters
    - CPM-based pricing ($5-12 for indoor healthcare DOOH)
    - 3 fill rate scenarios (25%, 50%, 75%)
-   - Revenue split proposal (70% Belgrano / 30% CLC)
+   - Revenue split proposal (70% CLC / 30% Belgrano)
    - Monthly projections in CLP
    - Comparison vs current $2M CLP/month cost
    - Annual projection and pilot structure

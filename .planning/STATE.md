@@ -48,7 +48,7 @@ Progress: [██████████] 100%
 ## Accumulated Context
 
 ### Key Decisions
-- Revenue share: 70% Belgrano / 30% CLC
+- Revenue share: 70% CLC / 30% Belgrano (CLC gets the majority)
 - CPM launch rate: $5 (conservative, increases to $8-12 with track record)
 - First target advertisers: ISAPREs (Colmena, Cruz Blanca) + pharma (Abbott, Novartis)
 - Multi-tenant schema from day 1 (Organization → Location → Zone → Screen)

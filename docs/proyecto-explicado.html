@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MagicInfo CLC — Resumen del Proyecto</title>
+<style>
+  :root {
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --emerald: #10b981;
+    --emerald-light: #ecfdf5;
+    --amber: #f59e0b;
+    --amber-light: #fffbeb;
+    --red: #ef4444;
+    --red-light: #fef2f2;
+    --purple: #8b5cf6;
+    --purple-light: #f5f3ff;
+    --slate-900: #0f172a;
+    --slate-700: #334155;
+    --slate-500: #64748b;
+    --slate-300: #cbd5e1;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--slate-50);
+    color: var(--slate-900);
+    line-height: 1.6;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--slate-900) 0%, #1e3a5f 100%);
+    color: white;
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
+  .hero p { font-size: 1.15rem; opacity: 0.85; max-width: 700px; margin: 0 auto; }
+  .hero .badge {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  section { padding: 48px 0; }
+  section + section { border-top: 1px solid var(--slate-300); }
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-bottom: 8px;
+  }
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--blue);
+    color: white;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .section-desc { color: var(--slate-500); font-size: 1rem; margin-bottom: 28px; }
+
+  h3 { font-size: 1.15rem; font-weight: 700; margin: 24px 0 12px; color: var(--slate-700); }
+
+  .card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-grid { display: grid; gap: 16px; }
+  .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card-grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+  .stat-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .stat-card .label { font-size: 0.8rem; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .stat-card .value { font-size: 2rem; font-weight: 800; margin: 6px 0 4px; }
+  .stat-card .detail { font-size: 0.85rem; color: var(--slate-500); }
+  .stat-card.blue .value { color: var(--blue); }
+  .stat-card.emerald .value { color: var(--emerald); }
+  .stat-card.amber .value { color: var(--amber); }
+  .stat-card.purple .value { color: var(--purple); }
+  .stat-card.red .value { color: var(--red); }
+
+  .highlight-box {
+    border-radius: 16px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .highlight-box.blue { background: var(--blue-light); border-left: 4px solid var(--blue); }
+  .highlight-box.emerald { background: var(--emerald-light); border-left: 4px solid var(--emerald); }
+  .highlight-box.amber { background: var(--amber-light); border-left: 4px solid var(--amber); }
+  .highlight-box.red { background: var(--red-light); border-left: 4px solid var(--red); }
+  .highlight-box.purple { background: var(--purple-light); border-left: 4px solid var(--purple); }
+  .highlight-box p { font-size: 0.95rem; }
+  .highlight-box strong { color: var(--slate-900); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin: 12px 0;
+  }
+  table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--slate-100);
+    color: var(--slate-500);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--slate-300);
+  }
+  table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--slate-700);
+  }
+  table tr:hover td { background: var(--slate-50); }
+  table td:first-child { font-weight: 600; color: var(--slate-900); }
+
+  .badge-inline {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge-inline.green { background: var(--emerald-light); color: #065f46; }
+  .badge-inline.blue { background: var(--blue-light); color: #1e40af; }
+  .badge-inline.amber { background: var(--amber-light); color: #92400e; }
+  .badge-inline.red { background: var(--red-light); color: #991b1b; }
+  .badge-inline.purple { background: var(--purple-light); color: #5b21b6; }
+
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .flow-step {
+    background: white;
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--blue);
+    text-align: center;
+    min-width: 140px;
+  }
+  .flow-arrow { color: var(--slate-300); font-size: 1.5rem; font-weight: 300; }
+
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .comparison .before, .comparison .after { border-radius: 16px; padding: 24px; }
+  .comparison .before { background: var(--red-light); border: 2px solid #fecaca; }
+  .comparison .after { background: var(--emerald-light); border: 2px solid #a7f3d0; }
+  .comparison .label-top { font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .comparison .before .label-top { color: var(--red); }
+  .comparison .after .label-top { color: var(--emerald); }
+  .comparison .big { font-size: 1.8rem; font-weight: 800; }
+  .comparison .before .big { color: #991b1b; }
+  .comparison .after .big { color: #065f46; }
+
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .screenshot-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .screenshot-card .icon { font-size: 2rem; margin-bottom: 8px; }
+  .screenshot-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .screenshot-card p { font-size: 0.85rem; color: var(--slate-500); }
+
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 20px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--slate-300);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 16px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--blue);
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+  .timeline-item .time { font-size: 0.8rem; color: var(--blue); font-weight: 700; text-transform: uppercase; }
+  .timeline-item .desc { font-size: 0.9rem; color: var(--slate-700); margin-top: 2px; }
+
+  .risk-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  .risk-row.high { background: var(--red-light); }
+  .risk-row.medium { background: var(--amber-light); }
+  .risk-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .risk-text { font-size: 0.9rem; }
+  .risk-text strong { display: block; margin-bottom: 2px; }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--slate-500);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.75rem; }
+    .comparison { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>MagicInfo CLC</h1>
+  <p>Belgrano Digital toma las 70 pantallas de Clinica Las Condes, les pone publicidad, y tanto la clinica como Belgrano ganan plata.</p>
+  <span class="badge">Proyecto completo &mdash; 6 fases, 19 requisitos</span>
+</div>
+
+<div class="container">
+
+<!-- 1. EL PROBLEMA -->
+<section>
+  <h2><span class="num">1</span> El Problema</h2>
+  <p class="section-desc">La oportunidad que descubrimos</p>
+
+  <div class="comparison">
+    <div class="before">
+      <div class="label-top">Hoy</div>
+      <div class="big">-$2.000.000</div>
+      <p style="margin-top:8px; font-size:0.9rem; color:#991b1b;">CLC paga 2 palos mensuales a una empresa por "mantener" 70 teles que funcionan solas. Ese dinero se bota.</p>
+    </div>
+    <div class="after">
+      <div class="label-top">Con Belgrano</div>
+      <div class="big">+$4.987.500</div>
+      <p style="margin-top:8px; font-size:0.9rem; color:#065f46;">CLC deja de pagar y empieza a GANAR plata. Incluso en el peor escenario, gana casi $5M/mes.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box blue">
+    <p><strong>70 pantallas Samsung</strong> repartidas por toda la clinica &mdash; salas de espera, pasillos, urgencias, cafeteria.</p>
+    <p style="margin-top:8px"><strong>6.000 personas al dia</strong> pasan frente a esas pantallas, sentadas, esperando, mirando.</p>
+    <p style="margin-top:8px"><strong>MagicInfo</strong> es el software de Samsung que controla lo que se muestra en cada tele (como un control remoto gigante).</p>
+  </div>
+</section>
+
+<!-- 2. LA PROPUESTA -->
+<section>
+  <h2><span class="num">2</span> La Propuesta de Belgrano</h2>
+  <p class="section-desc">Que le decimos a CLC y como funciona el negocio</p>
+
+  <div class="flow">
+    <div class="flow-step">Belgrano toma<br>las pantallas</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Trae<br>anunciantes</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Muestra publicidad<br>en las teles</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Se reparte<br>la plata</div>
+  </div>
+
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <h3 style="margin-top:0">Para CLC (la clinica)</h3>
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:6px 0; border-bottom:1px solid #f1f5f9;">&#10003; Dejan de pagar $2M/mes</li>
+        <li style="padding:6px 0; border-bottom:1px solid #f1f5f9;">&#10003; Empiezan a recibir el 70% de ingresos publicitarios</li>
+        <li style="padding:6px 0; border-bottom:1px solid #f1f5f9;">&#10003; Riesgo cero &mdash; Belgrano asume toda la inversion</li>
+        <li style="padding:6px 0;">&#10003; Siguen mostrando su contenido clinico (70% del tiempo)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Para Belgrano (nosotros)</h3>
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:6px 0; border-bottom:1px solid #f1f5f9;">&#10003; 30% de los ingresos publicitarios</li>
+        <li style="padding:6px 0; border-bottom:1px solid #f1f5f9;">&#10003; Plataforma escalable a otras clinicas</li>
+        <li style="padding:6px 0; border-bottom:1px solid #f1f5f9;">&#10003; Negocio recurrente (contratos mensuales)</li>
+        <li style="padding:6px 0;">&#10003; CLC como caso de exito para vender a otros</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3. LOS NUMEROS -->
+<section>
+  <h2><span class="num">3</span> Los Numeros</h2>
+  <p class="section-desc">Cuanta plata entra segun cuanta publicidad vendas</p>
+
+  <div class="card-grid card-grid-3" style="margin-bottom:24px">
+    <div class="stat-card blue">
+      <div class="label">Escenario Conservador</div>
+      <div class="value">$7.1M</div>
+      <div class="detail">CLP/mes &bull; Fill rate 25%</div>
+      <div style="margin-top:8px"><span class="badge-inline green">CLC gana $5.0M</span></div>
+    </div>
+    <div class="stat-card emerald">
+      <div class="label">Escenario Moderado</div>
+      <div class="value">$14.2M</div>
+      <div class="detail">CLP/mes &bull; Fill rate 50%</div>
+      <div style="margin-top:8px"><span class="badge-inline green">CLC gana $10.0M</span></div>
+    </div>
+    <div class="stat-card purple">
+      <div class="label">Escenario Optimista</div>
+      <div class="value">$34.2M</div>
+      <div class="detail">CLP/mes &bull; Fill rate 75%</div>
+      <div style="margin-top:8px"><span class="badge-inline green">CLC gana $23.9M</span></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Concepto</th>
+        <th>Conservador (25%)</th>
+        <th>Moderado (50%)</th>
+        <th>Optimista (75%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Impresiones vendidas</td>
+        <td>1.500.000</td>
+        <td>3.000.000</td>
+        <td>4.500.000</td>
+      </tr>
+      <tr>
+        <td>Ingreso bruto</td>
+        <td>$7.125.000</td>
+        <td>$14.250.000</td>
+        <td>$34.200.000</td>
+      </tr>
+      <tr>
+        <td>CLC (70%)</td>
+        <td>$4.987.500</td>
+        <td>$9.975.000</td>
+        <td>$23.940.000</td>
+      </tr>
+      <tr>
+        <td>Belgrano (30%)</td>
+        <td>$2.137.500</td>
+        <td>$4.275.000</td>
+        <td>$10.260.000</td>
+      </tr>
+      <tr style="background:#f0fdf4">
+        <td style="color:#065f46; font-weight:700">Swing CLC vs hoy</td>
+        <td style="color:#065f46; font-weight:700">+$6.987.500</td>
+        <td style="color:#065f46; font-weight:700">+$11.975.000</td>
+        <td style="color:#065f46; font-weight:700">+$25.940.000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box emerald">
+    <p><strong>Mensaje clave:</strong> Incluso vendiendo solo 25% del espacio publicitario, CLC gana casi $5M/mes en vez de pagar $2M. El riesgo para CLC es literalmente cero.</p>
+  </div>
+</section>
+
+<!-- 4. A QUIEN LE VENDES -->
+<section>
+  <h2><span class="num">4</span> A Quien le Vendes</h2>
+  <p class="section-desc">Los anunciantes que pagan por aparecer en las pantallas</p>
+
+  <div class="highlight-box amber">
+    <p><strong>Por que NO TNT Sport / Warner Bros (todavia):</strong> Esas marcas compran publicidad en redes de miles de pantallas. 70 teles en un solo lugar no les mueve la aguja. Son para cuando tengas 3+ clinicas.</p>
+  </div>
+
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <h3 style="margin-top:0"><span class="badge-inline purple">ISAPREs</span> Prioridad ALTA</h3>
+      <p style="font-size:0.9rem; color:var(--slate-500); margin-bottom:12px">Ya tienen oficinas en CLC. Su audiencia esta ahi sentada.</p>
+      <table>
+        <tbody>
+          <tr><td>Colmena Golden Cross</td><td>$1.5M - $3M/mes</td></tr>
+          <tr><td>Cruz Blanca</td><td>$1M - $2.5M/mes</td></tr>
+          <tr><td>Banmedica</td><td>$2M - $4M/mes</td></tr>
+          <tr><td>Consalud</td><td>$800K - $2M/mes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0"><span class="badge-inline green">Farmaceuticas</span> Prioridad ALTA</h3>
+      <p style="font-size:0.9rem; color:var(--slate-500); margin-bottom:12px">Ya tienen representantes medicos visitando CLC.</p>
+      <table>
+        <tbody>
+          <tr><td>Abbott</td><td>$1M - $3M/mes</td></tr>
+          <tr><td>Novartis</td><td>$1.5M - $4M/mes</td></tr>
+          <tr><td>Roche</td><td>$1.5M - $4M/mes</td></tr>
+          <tr><td>Bayer</td><td>$800K - $2.5M/mes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0"><span class="badge-inline blue">Aseguradoras</span> Prioridad MEDIA</h3>
+      <p style="font-size:0.9rem; color:var(--slate-500); margin-bottom:12px">Seguros de vida y salud complementarios.</p>
+      <table>
+        <tbody>
+          <tr><td>MetLife Chile</td><td>$800K - $2M/mes</td></tr>
+          <tr><td>Zurich Seguros</td><td>$500K - $1.5M/mes</td></tr>
+          <tr><td>SURA</td><td>$500K - $1.5M/mes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0"><span class="badge-inline amber">Wellness</span> Prioridad MEDIA</h3>
+      <p style="font-size:0.9rem; color:var(--slate-500); margin-bottom:12px">Salud preventiva y bienestar.</p>
+      <table>
+        <tbody>
+          <tr><td>Laboratorio Chile</td><td>$500K - $1.5M/mes</td></tr>
+          <tr><td>Minsal Prevencion</td><td>$300K - $800K/mes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="highlight-box blue">
+    <p><strong>El pitch para anunciantes:</strong> "6.000 personas al dia se sientan 15-45 minutos frente a tus pantallas en Clinica Las Condes. Son personas ABC1 tomando decisiones de salud. Un spot de 15 segundos con proof-of-play desde $500.000 CLP/mes."</p>
+  </div>
+</section>
+
+<!-- 5. QUE SE CONSTRUYO -->
+<section>
+  <h2><span class="num">5</span> Que se Construyo</h2>
+  <p class="section-desc">Los dos pilares del proyecto: documentos de negocio + plataforma web</p>
+
+  <h3>Parte A: Documentos de Negocio</h3>
+  <p style="font-size:0.9rem; color:var(--slate-500); margin-bottom:16px">Todo lo que necesitas para vender el servicio y operar. Carpeta <code>docs/</code></p>
+
+  <div class="card-grid card-grid-2">
+    <div class="card" style="border-left:4px solid var(--blue)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Modelo de Ingresos</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Cuanta plata entra segun 3 escenarios de fill rate. Incluye CPM, revenue share, y proyecciones anuales.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--blue)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Media Kit</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Catalogo profesional para mostrar a anunciantes. Datos de audiencia, formatos, precios, paquetes.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--emerald)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Pipeline de Anunciantes</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">20+ empresas organizadas por categoria con pitch, presupuesto estimado y approach.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--emerald)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Politica de Contenido</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Que se puede y que no mostrar en la clinica. Regulacion chilena (ISP, Ley 20.606).</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--amber)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Checklist de Auditoria</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Lista de verificacion para la visita a CLC: licencias, servidor, red, seguridad.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--amber)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Catalogo de Pantallas</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Planilla para documentar las 70 teles: modelo, ubicacion, estado, zona.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--purple)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Plan de Transicion</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Paso a paso para cambiar de proveedor sin que se apague ninguna tele.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--purple)">
+      <h4 style="font-size:0.95rem; font-weight:700;">Guia de Seguridad</h4>
+      <p style="font-size:0.85rem; color:var(--slate-500)">Como parchear la vulnerabilidad critica CVE-2024-7399 del servidor MagicInfo.</p>
+    </div>
+  </div>
+
+  <h3>Parte B: Belgrano Panel (aplicacion web)</h3>
+  <p style="font-size:0.9rem; color:var(--slate-500); margin-bottom:16px">Tu centro de control. Se abre en el navegador. Carpeta <code>belgrano-panel/</code></p>
+
+  <div class="screenshot-grid">
+    <div class="screenshot-card">
+      <div class="icon" style="color:var(--blue)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25a2.25 2.25 0 0 1-2.25-2.25v-2.25Z"/></svg>
+      </div>
+      <h4>Dashboard</h4>
+      <p>Resumen general: pantallas online, campanas activas, plata del mes</p>
+    </div>
+    <div class="screenshot-card">
+      <div class="icon" style="color:var(--emerald)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25Z"/></svg>
+      </div>
+      <h4>Screens</h4>
+      <p>Las 70 pantallas con estado (verde = online), zona, modelo. Reinicio remoto.</p>
+    </div>
+    <div class="screenshot-card">
+      <div class="icon" style="color:var(--purple)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+      </div>
+      <h4>Content</h4>
+      <p>Subir videos e imagenes, crear playlists, programar horarios.</p>
+    </div>
+    <div class="screenshot-card">
+      <div class="icon" style="color:var(--amber)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38a.75.75 0 0 1-1.021-.265l-.391-.676a19.814 19.814 0 0 1-2.093-6.733m5.59 0c2.484-.15 4.863-.69 7.07-1.558a.75.75 0 0 0 .465-.724V6.622a.75.75 0 0 0-.465-.724A18.912 18.912 0 0 0 10.34 4.34m0 11.5v-11.5"/></svg>
+      </div>
+      <h4>Campaigns</h4>
+      <p>Campanas publicitarias: anunciante, fechas, zonas, frecuencia.</p>
+    </div>
+    <div class="screenshot-card">
+      <div class="icon" style="color:#0891b2">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>
+      </div>
+      <h4>Advertisers</h4>
+      <p>CRM de anunciantes: contacto, contrato, categoria, campanas.</p>
+    </div>
+    <div class="screenshot-card">
+      <div class="icon" style="color:var(--red)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+      </div>
+      <h4>Reports</h4>
+      <p>Proof-of-play, graficos, revenue share para CLC, exportar CSV/PDF.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box blue">
+    <p><strong>Para verlo en accion:</strong></p>
+    <p style="margin-top:4px; font-family:monospace; font-size:0.9rem; background:#1e293b; color:#e2e8f0; padding:10px 14px; border-radius:8px; margin-top:10px">
+      cd belgrano-panel<br>
+      npm run dev
+    </p>
+    <p style="margin-top:8px; font-size:0.9rem">Abre <strong>http://localhost:3000</strong> en tu navegador. Funciona con datos de demo &mdash; no necesita base de datos ni MagicInfo real.</p>
+  </div>
+</section>
+
+<!-- 6. RIESGOS -->
+<section>
+  <h2><span class="num">6</span> Riesgos a Tener en Cuenta</h2>
+  <p class="section-desc">Cosas que pueden salir mal y como evitarlas</p>
+
+  <div class="risk-row high">
+    <span class="risk-icon">&#9888;</span>
+    <div class="risk-text">
+      <strong>Las licencias de MagicInfo pueden ser del proveedor actual</strong>
+      Sin licencias no controlas las teles. Verificar ANTES de firmar con CLC.
+    </div>
+  </div>
+  <div class="risk-row high">
+    <span class="risk-icon">&#9888;</span>
+    <div class="risk-text">
+      <strong>Vulnerabilidad critica en el servidor (CVE-2024-7399)</strong>
+      Un hacker podria tomar control. Se creo una guia de parcheo. Hacer antes de operar.
+    </div>
+  </div>
+  <div class="risk-row high">
+    <span class="risk-icon">&#9888;</span>
+    <div class="risk-text">
+      <strong>Las teles se pueden apagar durante la transicion</strong>
+      Pantallas negras en una clinica = desastre. El plan de transicion incluye 2-4 semanas de operacion paralela.
+    </div>
+  </div>
+  <div class="risk-row medium">
+    <span class="risk-icon">&#9888;</span>
+    <div class="risk-text">
+      <strong>No conseguir anunciantes rapido</strong>
+      Sin ingresos no hay negocio. Por eso los primeros targets son ISAPREs que YA estan en CLC.
+    </div>
+  </div>
+</section>
+
+<!-- 7. PROXIMOS PASOS -->
+<section>
+  <h2><span class="num">7</span> Proximos Pasos</h2>
+  <p class="section-desc">Que hacer ahora para poner esto en marcha</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">Paso 1</div>
+      <div class="desc"><strong>Presentar la propuesta a CLC</strong> &mdash; usar el media kit y modelo de ingresos que ya estan listos</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Paso 2</div>
+      <div class="desc"><strong>Auditar las pantallas</strong> &mdash; ir a CLC con el checklist y llenar el catalogo de las 70 teles</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Paso 3</div>
+      <div class="desc"><strong>Verificar licencias</strong> &mdash; confirmar quien es dueno de las licencias de MagicInfo (critico)</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Paso 4</div>
+      <div class="desc"><strong>Contactar 3 anunciantes</strong> &mdash; empezar con ISAPREs que ya tienen oficina en CLC</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Paso 5</div>
+      <div class="desc"><strong>Conectar la plataforma</strong> &mdash; cuando tengas acceso al MagicInfo real, enganchar el Belgrano Panel</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">Paso 6</div>
+      <div class="desc"><strong>Piloto 90 dias</strong> &mdash; primeras campanas con anunciantes a precio de entrada ($5 CPM)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. RESUMEN TECNICO -->
+<section>
+  <h2><span class="num">8</span> Resumen Tecnico</h2>
+  <p class="section-desc">Para referencia &mdash; como esta construido por dentro</p>
+
+  <div class="card-grid card-grid-3">
+    <div class="stat-card">
+      <div class="label">Archivos de codigo</div>
+      <div class="value" style="color:var(--blue)">27</div>
+      <div class="detail">TypeScript / TSX</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Documentos</div>
+      <div class="value" style="color:var(--emerald)">8</div>
+      <div class="detail">Negocio + operaciones</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Paginas del panel</div>
+      <div class="value" style="color:var(--purple)">16</div>
+      <div class="detail">Todas funcionales</div>
+    </div>
+  </div>
+
+  <table style="margin-top:20px">
+    <thead>
+      <tr><th>Tecnologia</th><th>Que es</th><th>Para que se usa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Next.js 16</td><td>Framework web</td><td>El esqueleto de la aplicacion</td></tr>
+      <tr><td>TypeScript</td><td>Lenguaje de programacion</td><td>Codigo mas seguro que JavaScript</td></tr>
+      <tr><td>Tailwind CSS</td><td>Sistema de diseno</td><td>Colores, espaciado, tipografia</td></tr>
+      <tr><td>Drizzle ORM</td><td>Conector a base de datos</td><td>Traduce entre codigo y la base</td></tr>
+      <tr><td>PostgreSQL</td><td>Base de datos</td><td>Donde se guardan todos los datos</td></tr>
+      <tr><td>Recharts</td><td>Graficos</td><td>Charts de reportes y revenue</td></tr>
+      <tr><td>MagicInfo API</td><td>Conexion a Samsung</td><td>Controlar las 70 pantallas remotamente</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</div>
+
+<footer>
+  <p>MagicInfo CLC &mdash; Belgrano Digital &bull; Proyecto inicializado marzo 2026</p>
+  <p style="margin-top:4px">6 fases completadas &bull; 19 requisitos cubiertos &bull; Listo para revision</p>
+</footer>
+
+</body>
+</html>

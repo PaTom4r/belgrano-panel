@@ -168,7 +168,7 @@ export const revenueStatements = pgTable("revenue_statements", {
   totalRevenueCLP: decimal("total_revenue_clp", { precision: 12, scale: 2 }).default("0").notNull(),
   locationShareCLP: decimal("location_share_clp", { precision: 12, scale: 2 }).default("0").notNull(),
   belgranoShareCLP: decimal("belgrano_share_clp", { precision: 12, scale: 2 }).default("0").notNull(),
-  revenueSharePercent: decimal("revenue_share_percent", { precision: 5, scale: 2 }).default("30").notNull(),
+  revenueSharePercent: decimal("revenue_share_percent", { precision: 5, scale: 2 }).default("70").notNull(), // CLC's share (70%)
   generatedAt: timestamp("generated_at").defaultNow().notNull(),
 });
 

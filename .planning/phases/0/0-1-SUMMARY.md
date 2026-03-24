@@ -21,11 +21,11 @@ CPM-based revenue model at 3 fill rates showing CLC earns $2.1M-$10.3M CLP/month
 
 ### Revenue Model (`docs/revenue-model.md`)
 - CPM pricing: $5 launch / $8 consolidated / $12 premium (CLP $4,750-$11,400)
-- Revenue split: 70% Belgrano / 30% CLC (with tiered alternative for negotiation)
-- **Scenario 25% fill:** CLC earns $2,137,500/month (swing +$4.1M vs. current $2M cost)
-- **Scenario 50% fill:** CLC earns $4,275,000/month (swing +$6.3M)
-- **Scenario 75% fill:** CLC earns $10,260,000/month at $8 CPM (swing +$12.3M)
-- Year 1 projection: CLC earns $80.8M CLP total (vs. paying $24M)
+- Revenue split: 70% CLC / 30% Belgrano (with tiered alternative for negotiation)
+- **Scenario 25% fill:** CLC earns $4,987,500/month (swing +$7.0M vs. current $2M cost)
+- **Scenario 50% fill:** CLC earns $9,975,000/month (swing +$12.0M)
+- **Scenario 75% fill:** CLC earns $23,940,000/month at $8 CPM (swing +$25.9M)
+- Year 1 projection: CLC earns $188.5M CLP total (vs. paying $24M)
 - Belgrano break-even at ~8% fill rate ($2.4M/month gross)
 - 90-day pilot structure proposed
 
@@ -62,7 +62,7 @@ None — plan executed exactly as written.
 ## Decisions Made
 
 - **CPM pricing at $5 launch:** Conservative entry price to build pipeline; benchmarked against indoor healthcare DOOH in LATAM ($8-15 global). Allows room to increase as proof-of-play data accumulates.
-- **70/30 revenue split as base:** Industry standard for venue-based DOOH is 60/40 to 80/20 for operator. 70/30 is competitive middle ground; tiered alternative offered for negotiation.
+- **70/30 revenue split (CLC/Belgrano):** CLC receives the majority share (70%) since they provide the premium infrastructure and audience. Belgrano's 30% covers operations and scales across multiple venues.
 - **ISAPREs as first target:** Natural fit (health insurance in health context), existing CLC relationships, and accessible marketing budgets. Banmedica flagged as potential conflict (Bupa group owns CLC).
 - **No TNT Sport / Warner Bros yet:** Explained why scale threshold not met — deferred to multi-venue v2.
 

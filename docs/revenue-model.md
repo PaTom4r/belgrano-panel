@@ -61,31 +61,31 @@ El pricing se basa en CPM, estándar de la industria DOOH. Los CPM para indoor h
 
 ## Estructura de Revenue Share
 
-### Propuesta: 70% Belgrano / 30% CLC
+### Propuesta: 70% CLC / 30% Belgrano
 
 | Concepto | Detalle |
 |----------|---------|
-| **Belgrano (70%)** | Gestión comercial, operación técnica, soporte, plataforma |
-| **CLC (30%)** | Infraestructura (pantallas), audiencia (pacientes), espacio físico |
+| **CLC (70%)** | Infraestructura (pantallas), audiencia (pacientes), espacio físico |
+| **Belgrano (30%)** | Gestión comercial, operación técnica, soporte, plataforma |
 
 ### Justificación del Split
 
-- **Belgrano asume todo el riesgo comercial:** prospección de anunciantes, producción de contenido, gestión de campañas, inversión tecnológica, soporte.
-- **CLC aporta el activo pasivo:** las pantallas ya están instaladas y pagadas; la audiencia existe por la operación clínica normal.
-- **Benchmark industria DOOH:** splits típicos en redes venue-based van de 60/40 a 80/20 a favor del operador. 70/30 es un punto medio competitivo.
-- **Incentivo para CLC:** el 30% es ingreso neto — CLC no gasta nada. Comparado con pagar $2M/mes, cualquier ingreso positivo ya es un cambio de paradigma.
+- **CLC aporta el activo principal:** 70 pantallas instaladas, 6.000 pacientes diarios, y el espacio físico premium. Sin CLC no hay inventario publicitario.
+- **Belgrano aporta la operación:** prospección de anunciantes, gestión de campañas, plataforma tecnológica, soporte técnico.
+- **Incentivo para CLC:** el 70% es un porcentaje atractivo que hace el deal irresistible. Comparado con pagar $2M/mes, es un cambio de paradigma total.
+- **Viabilidad para Belgrano:** 30% del ingreso cubre la operación y genera margen, especialmente al escalar a múltiples venues.
 
 ### Alternativa para Negociación
 
-Si CLC requiere un split más agresivo, se puede proponer un esquema escalonado:
+Si Belgrano necesita mayor margen en la fase inicial, se puede proponer un esquema escalonado:
 
-| Ingreso Mensual Bruto | Split Belgrano | Split CLC |
-|------------------------|----------------|-----------|
-| Hasta $3.000.000 CLP | 80% | 20% |
+| Ingreso Mensual Bruto | Split CLC | Split Belgrano |
+|------------------------|-----------|----------------|
+| Hasta $3.000.000 CLP | 60% | 40% |
 | $3.000.001 – $8.000.000 CLP | 70% | 30% |
-| Sobre $8.000.000 CLP | 60% | 40% |
+| Sobre $8.000.000 CLP | 75% | 25% |
 
-Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio crece.
+Esto da a Belgrano más margen en la fase de ramp-up y premia a CLC conforme el negocio crece.
 
 ---
 
@@ -96,7 +96,7 @@ Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio
 - 70 pantallas, 30% tiempo publicitario
 - CPM de lanzamiento: $5 USD ($4.750 CLP)
 - Impresiones potenciales: ~6.000.000/mes (100% fill rate)
-- Revenue share: 70/30 (Belgrano/CLC)
+- Revenue share: 70/30 (CLC/Belgrano)
 
 ### Escenario 1: Fill Rate 25% (Conservador — Meses 1-3)
 
@@ -106,10 +106,10 @@ Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio
 |----------|-------|
 | Impresiones vendidas | 1.500.000 |
 | Ingreso bruto | $7.125.000 CLP |
-| Belgrano (70%) | $4.987.500 CLP |
-| CLC (30%) | $2.137.500 CLP |
+| CLC (70%) | $4.987.500 CLP |
+| Belgrano (30%) | $2.137.500 CLP |
 
-**Resultado para CLC:** En vez de pagar $2.000.000/mes, recibe $2.137.500/mes. **Swing positivo de $4.137.500 CLP/mes.**
+**Resultado para CLC:** En vez de pagar $2.000.000/mes, recibe $4.987.500/mes. **Swing positivo de $6.987.500 CLP/mes.**
 
 ### Escenario 2: Fill Rate 50% (Moderado — Meses 4-6)
 
@@ -119,10 +119,10 @@ Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio
 |----------|-------|
 | Impresiones vendidas | 3.000.000 |
 | Ingreso bruto | $14.250.000 CLP |
-| Belgrano (70%) | $9.975.000 CLP |
-| CLC (30%) | $4.275.000 CLP |
+| CLC (70%) | $9.975.000 CLP |
+| Belgrano (30%) | $4.275.000 CLP |
 
-**Resultado para CLC:** Recibe $4.275.000/mes. **Swing positivo de $6.275.000 CLP/mes.**
+**Resultado para CLC:** Recibe $9.975.000/mes. **Swing positivo de $11.975.000 CLP/mes.**
 
 ### Escenario 3: Fill Rate 75% (Optimista — Meses 7-12)
 
@@ -133,10 +133,10 @@ Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio
 | Impresiones vendidas | 4.500.000 |
 | CPM aplicado | $7.600 CLP ($8 USD) |
 | Ingreso bruto | $34.200.000 CLP |
-| Belgrano (70%) | $23.940.000 CLP |
-| CLC (30%) | $10.260.000 CLP |
+| CLC (70%) | $23.940.000 CLP |
+| Belgrano (30%) | $10.260.000 CLP |
 
-**Resultado para CLC:** Recibe $10.260.000/mes. **Swing positivo de $12.260.000 CLP/mes.**
+**Resultado para CLC:** Recibe $23.940.000/mes. **Swing positivo de $25.940.000 CLP/mes.**
 
 ---
 
@@ -145,11 +145,11 @@ Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio
 | Concepto | Hoy (proveedor actual) | Con Belgrano (Esc. 25%) | Con Belgrano (Esc. 50%) | Con Belgrano (Esc. 75%) |
 |----------|------------------------|------------------------|------------------------|------------------------|
 | Costo mensual CLC | -$2.000.000 | $0 | $0 | $0 |
-| Ingreso mensual CLC | $0 | +$2.137.500 | +$4.275.000 | +$10.260.000 |
-| **Resultado neto CLC** | **-$2.000.000** | **+$2.137.500** | **+$4.275.000** | **+$10.260.000** |
-| Swing vs. hoy | — | +$4.137.500 | +$6.275.000 | +$12.260.000 |
+| Ingreso mensual CLC | $0 | +$4.987.500 | +$9.975.000 | +$23.940.000 |
+| **Resultado neto CLC** | **-$2.000.000** | **+$4.987.500** | **+$9.975.000** | **+$23.940.000** |
+| Swing vs. hoy | — | +$6.987.500 | +$11.975.000 | +$25.940.000 |
 
-> **Mensaje clave para CLC:** Incluso en el escenario más conservador (25% fill rate, CPM mínimo), CLC gana más de lo que hoy paga. El riesgo es cero — Belgrano asume toda la inversión operativa y comercial.
+> **Mensaje clave para CLC:** Incluso en el escenario más conservador (25% fill rate, CPM mínimo), CLC gana casi $5M/mes en vez de pagar $2M. El riesgo es cero — Belgrano asume toda la inversión operativa y comercial.
 
 ---
 
@@ -157,14 +157,16 @@ Esto protege a Belgrano en la fase de ramp-up y premia a CLC conforme el negocio
 
 Asumiendo ramp-up gradual: 3 meses al 25%, 3 meses al 50%, 6 meses al 75% con CPM incrementado.
 
-| Período | Fill Rate | CPM (CLP) | Ingreso Bruto | CLC (30%) | Belgrano (70%) |
+| Período | Fill Rate | CPM (CLP) | Ingreso Bruto | CLC (70%) | Belgrano (30%) |
 |---------|-----------|-----------|---------------|-----------|----------------|
-| Meses 1-3 | 25% | $4.750 | $21.375.000 | $6.412.500 | $14.962.500 |
-| Meses 4-6 | 50% | $4.750 | $42.750.000 | $12.825.000 | $29.925.000 |
-| Meses 7-12 | 75% | $7.600 | $205.200.000 | $61.560.000 | $143.640.000 |
-| **Total Año 1** | — | — | **$269.325.000** | **$80.797.500** | **$188.527.500** |
+| Meses 1-3 | 25% | $4.750 | $21.375.000 | $14.962.500 | $6.412.500 |
+| Meses 4-6 | 50% | $4.750 | $42.750.000 | $29.925.000 | $12.825.000 |
+| Meses 7-12 | 75% | $7.600 | $205.200.000 | $143.640.000 | $61.560.000 |
+| **Total Año 1** | — | — | **$269.325.000** | **$188.527.500** | **$80.797.500** |
 
-**CLC gana $80.797.500 CLP en el primer año** en vez de pagar $24.000.000 CLP ($2M x 12). Swing anual: **+$104.797.500 CLP.**
+**CLC gana $188.527.500 CLP en el primer año** en vez de pagar $24.000.000 CLP ($2M x 12). Swing anual: **+$212.527.500 CLP.**
+
+**Belgrano gana $80.797.500 CLP en el primer año** — cubre operación, plataforma, y margen para crecer a más venues.
 
 ---
 
@@ -198,7 +200,7 @@ Para mitigar riesgo de ambas partes, se propone un piloto de 90 días:
 | Prospección comercial | $200.000 CLP |
 | **Total operativo** | **~$1.150.000 CLP** |
 
-**Break-even Belgrano:** Con ingresos de $1.650.000 CLP/mes (Belgrano 70%) → requiere ingreso bruto de ~$2.360.000 CLP/mes → alcanzable con fill rate de ~8%.
+**Break-even Belgrano:** Con costos de ~$1.150.000 CLP/mes y un 30% del ingreso bruto → requiere ingreso bruto de ~$3.830.000 CLP/mes → alcanzable con fill rate de ~13%.
 
 ---
 
