@@ -219,8 +219,8 @@ export default function DisplayPage({
       const data: PlaylistData = await res.json();
 
       setPlaylist((prev) => {
-        // Only update if content actually changed
-        if (prev && prev.updatedAt === data.updatedAt) return prev;
+        // Only update if content actually changed (compare item IDs, not timestamp)
+        if (prev && prev.items.length === data.items.length && prev.items.every((item, i) => item.id === data.items[i]?.id)) return prev;
         return data;
       });
       setError(null);
@@ -254,8 +254,13 @@ export default function DisplayPage({
 
   // ── Send heartbeat ──────────────────────────────────────────────
 
+  const playlistRef = useRef<PlaylistData | null>(null);
+  const indexRef = useRef(0);
+  playlistRef.current = playlist;
+  indexRef.current = currentIndex;
+
   const sendHeartbeat = useCallback(() => {
-    const currentItem = playlist?.items[currentIndex];
+    const currentItem = playlistRef.current?.items[indexRef.current];
     fetch(`/api/display/${id}/heartbeat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -268,7 +273,7 @@ export default function DisplayPage({
     }).catch(() => {
       // Heartbeat failure is non-critical
     });
-  }, [id, playlist, currentIndex]);
+  }, [id]);
 
   // ── Advance to next item ────────────────────────────────────────
 

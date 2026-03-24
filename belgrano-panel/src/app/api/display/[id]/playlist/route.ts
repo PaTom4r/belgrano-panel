@@ -96,7 +96,7 @@ export async function GET(
     zone: screen.zone,
     currentSchedule: scheduleName,
     items,
-    updatedAt: now.toISOString(),
+    updatedAt: `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}T${String(now.getHours()).padStart(2,"0")}:00:00Z`,
     pollInterval: 60,
   };
 
