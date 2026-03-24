@@ -182,3 +182,62 @@ export const users = pgTable("users", {
   organizationId: uuid("organization_id").references(() => organizations.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+// --- v1.1 Schema additions ---
+
+// Heartbeats — screens send every 5 min (BEAT-01)
+export const heartbeats = pgTable("heartbeats", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  screenId: uuid("screen_id").references(() => screens.id).notNull(),
+  currentContentId: text("current_content_id"),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  receivedAt: timestamp("received_at").defaultNow().notNull(),
+});
+
+// Screen registration requests — self-register on first load (REG-01)
+export const screenRegistrations = pgTable("screen_registrations", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  displayId: text("display_id").notNull().unique(),
+  name: text("name"),
+  zoneId: uuid("zone_id").references(() => zones.id),
+  userAgent: text("user_agent"),
+  ipAddress: text("ip_address"),
+  resolution: text("resolution"),
+  isAssigned: boolean("is_assigned").default(false).notNull(),
+  registeredAt: timestamp("registered_at").defaultNow().notNull(),
+  lastSeen: timestamp("last_seen"),
+});
+
+// Hardware commands queue — admin sends restart/power commands (HW-01, HW-02)
+export const hardwareCommands = pgTable("hardware_commands", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  screenId: text("screen_id").notNull(),
+  command: text("command").notNull(), // "restart", "power_off", "power_on"
+  status: text("status").default("pending").notNull(), // "pending", "acknowledged", "executed", "failed"
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  acknowledgedAt: timestamp("acknowledged_at"),
+});
+
+// Template zone layout type for templates
+export type TemplateZone = {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+// Templates — layout definitions for multi-zone displays (Phase 8)
+export const templates = pgTable("templates", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  organizationId: uuid("organization_id").references(() => organizations.id).notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+  zones: jsonb("zones").$type<TemplateZone[]>().notNull(),
+  width: integer("width").default(1920).notNull(),
+  height: integer("height").default(1080).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
