@@ -1,3 +1,7 @@
+import { db } from "@/lib/db";
+import { heartbeats, screens } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -11,15 +15,23 @@ export async function POST(
     // Accept empty body
   }
 
-  // In production, this would update the screen's lastSeen in DB
-  console.log(`[heartbeat] Screen ${id}`, {
-    currentContentId: body.currentContentId ?? null,
-    timestamp: body.timestamp ?? new Date().toISOString(),
-    userAgent: body.userAgent ?? "unknown",
-  });
+  try {
+    await db.insert(heartbeats).values({
+      screenId: id,
+      currentContentId: (body.currentContentId as string) ?? null,
+      ipAddress: request.headers.get("x-forwarded-for") ?? null,
+      userAgent: (body.userAgent as string) ?? null,
+    });
+
+    await db.update(screens)
+      .set({ lastSeen: new Date(), status: "online" })
+      .where(eq(screens.id, id));
+  } catch (error) {
+    console.error("[heartbeat] DB error:", error);
+  }
 
   return Response.json({
     ok: true,
-    commands: [], // Future: remote restart, volume change, refresh, etc.
+    commands: [],
   });
 }

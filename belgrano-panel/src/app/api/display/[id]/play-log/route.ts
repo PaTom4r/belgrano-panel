@@ -1,3 +1,6 @@
+import { db } from "@/lib/db";
+import { playLogs } from "@/lib/db/schema";
+
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -11,14 +14,17 @@ export async function POST(
     return Response.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // In production, this would insert into play_logs table
-  console.log(`[play-log] Screen ${id}`, {
-    contentItemId: body.contentItemId,
-    campaignId: body.campaignId ?? null,
-    playedAt: body.playedAt ?? new Date().toISOString(),
-    durationSeconds: body.durationSeconds,
-    zone: body.zone,
-  });
+  try {
+    await db.insert(playLogs).values({
+      screenId: id,
+      contentItemId: (body.contentItemId as string) ?? null,
+      campaignId: (body.campaignId as string) ?? null,
+      playedAt: new Date((body.playedAt as string) ?? Date.now()),
+      durationSeconds: (body.durationSeconds as number) ?? null,
+    });
+  } catch (error) {
+    console.error("[play-log] DB error:", error);
+  }
 
   return Response.json({ ok: true });
 }
