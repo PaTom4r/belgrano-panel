@@ -5,61 +5,72 @@
 See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** CLC stops paying for screen maintenance and starts earning revenue through advertisers.
-**Current focus:** Milestone v1.1 complete — all phases delivered
+**Current focus:** Debug display pipeline — content upload → playlist → TV
 
 ## Current Position
 
-Phase: 10 of 10 (all complete)
-Status: Milestone v1.1 complete — Display Module + Heartbeat delivered
-Last activity: 2026-03-24 — All 5 phases (6-10) executed, 27/27 requirements implemented
+Phase: Post-milestone v1.1 — Production integration
+Status: DB connected, display works partially, upload pipeline has bug
+Last activity: 2026-03-24 — DB connected to Supabase, display shows first image but doesn't rotate to new uploads
 
-Progress: [██████████] 100% (v1.1) | v1.0 complete
+Progress: v1.0 [██████████] 100% | v1.1 [██████████] 100% | Production [████░░░░░░] 40%
 
-## Milestone v1.1 Deliverables
+## What Works
+- Supabase DB connected (18 tables, RLS enabled, 70 screens seeded)
+- Display page shows content from real DB ✓
+- First image (New York 4K) displays on AOC TV ✓
+- Heartbeat writes to DB ✓
+- Play-log writes to DB ✓
+- Content upload saves to Supabase Storage ✓
+- Auto-add to playlist on upload ✓
+- Vercel deploy with env vars configured ✓
+- panel.belgrano.cl domain configured (DNS via Cloudflare CNAME)
 
-### Phase 6: Display Engine + Content API
-- `src/app/display/layout.tsx` — Minimal fullscreen layout (no dashboard chrome)
-- `src/app/display/[id]/page.tsx` — Core display player with playlist cycling, fade transitions, fallback
-- `src/app/api/display/[id]/playlist/route.ts` — Content delivery API
-- `src/app/api/display/[id]/heartbeat/route.ts` — Heartbeat endpoint
-- `src/app/api/display/[id]/play-log/route.ts` — Play report endpoint
-- `src/lib/scheduling-engine.ts` — Priority-based schedule evaluator
+## Bug to Fix Next Session
+**Display not rotating to new images after upload.**
 
-### Phase 7: Heartbeat + Registration + Hardware Control
-- `src/lib/db/schema.ts` — Added heartbeats, screenRegistrations, hardwareCommands, templates tables
-- `src/app/api/display/register/route.ts` — Screen self-registration
-- `src/app/api/display/[id]/command/route.ts` — Hardware commands (restart, power)
-- `src/app/(dashboard)/screens/manage/page.tsx` — Screen management with assignment, heartbeat, commands
+Symptoms:
+- First image shows fine
+- Transition animation fires (brief fade)
+- But new uploaded images don't appear in rotation
 
-### Phase 8: Template Builder / Web Author
-- `src/lib/template-renderer.tsx` — Shared multi-zone renderer (admin + display)
-- `src/app/(dashboard)/templates/page.tsx` — Template gallery
-- `src/app/(dashboard)/templates/new/page.tsx` — Template editor (multi-zone, content types, preview)
-- `src/app/(dashboard)/templates/preview/page.tsx` — Fullscreen preview
+Likely causes to investigate:
+1. Playlist polling (every 60s) may detect "same playlist" and skip update even when items changed — the comparison uses item IDs, but the poll might not be refetching properly
+2. The display page's `advanceToNext` may have a stale closure over the playlist state
+3. Content items may have correct DB entry but the thumbnail_url may not be publicly accessible from Supabase Storage
+4. Check if the Supabase Storage bucket "content" is truly public (test the URL directly in browser)
 
-### Phase 9: Conditional Scheduling + Smart Playlists
-- `src/lib/smart-playlist.ts` — Priority-based, frequency-capped, weighted round-robin engine
-- `src/lib/scheduling-engine.ts` — Enhanced with date ranges, screen targeting, emergency override
-- `src/app/(dashboard)/content/schedules/advanced/page.tsx` — Advanced scheduling UI
-- `src/app/(dashboard)/content/schedules/smart-playlist/page.tsx` — Smart playlist config
+Debug steps for next session:
+1. Hit `/api/display/dbe3349c-69b1-477c-8a23-6820f143a887/playlist` directly in browser — see what items are returned
+2. Check each thumbnail_url is accessible (open in browser)
+3. Check browser console on display page for errors
+4. Test with `?debug=1` parameter on display page
 
-### Phase 10: Proof-of-Play + Real-Time Updates
-- `src/app/api/display/play-logs/route.ts` — Aggregated play logs API
-- `src/app/(dashboard)/reports/live/page.tsx` — Live proof-of-play dashboard
-- `src/app/api/display/[id]/schedule-update/route.ts` — SSE for real-time schedule push
+## Infrastructure
+- **GitHub:** github.com/PaTom4r/belgrano-panel (public)
+- **Vercel:** belgrano-panel project, production deploy
+- **Domain:** panel.belgrano.cl (CNAME → cname.vercel-dns.com via Cloudflare)
+- **Supabase:** project jtumriuyllcueywbgcgv (US West 2)
+- **DB URL:** postgresql://postgres.jtumriuyllcueywbgcgv:BelgranoPanel2026@aws-0-us-west-2.pooler.supabase.com:5432/postgres
+- **Deployment Protection:** Needs to be disabled in Vercel dashboard (Settings → Deployment Protection → Disabled)
+
+## Key Screen IDs for Testing
+- `dbe3349c-69b1-477c-8a23-6820f143a887` → CLC-Lobby-Principal-1
+- Display URL: `panel.belgrano.cl/display/dbe3349c-69b1-477c-8a23-6820f143a887`
 
 ## Accumulated Context
 
-### Key Decisions
+### Decisions
 - Revenue share: 70% CLC / 30% Belgrano
-- Custom solution replaces MagicInfo entirely (URL Launcher, saves ~$33K USD)
-- Display page at `/display/[id]` — each TV loads this URL
-- Scheduling engine: priority-based (emergency=100, campaign=50, default=10, fallback=1)
-- Smart playlists: weighted round-robin with frequency caps
-- SSE for real-time schedule updates to displays
-- Templates support 6 content types: video, image, text, HTML5, clock, weather
+- Plans: Starter $5M, Intermedio $7M, Business $10M CLP/mes
+- Warner Bros in active negotiation
+- Custom solution replaces MagicInfo (URL Launcher, saves ~$33K USD)
+- Supabase for DB + Storage
+- Vercel for hosting
+- Auto-add to playlist on content upload
 
 ## Session Continuity
 
 Last session: 2026-03-24
-Stopped at: Milestone v1.1 complete — all 5 phases delivered, 33 routes, build passes
+Stopped at: Display pipeline bug — images upload OK but don't appear in TV rotation
+Resume: Fix display rotation bug, then test full upload→TV pipeline
