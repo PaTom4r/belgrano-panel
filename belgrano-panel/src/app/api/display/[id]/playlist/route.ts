@@ -62,11 +62,11 @@ export async function GET(
         const content = await db.query.contentItems.findFirst({
           where: eq(contentItems.id, pi.contentItemId),
         });
-        if (content) {
+        if (content && content.thumbnailUrl) {
           items.push({
             id: content.id,
             type: content.type,
-            url: content.thumbnailUrl || `/api/content/${content.id}/file`,
+            url: content.thumbnailUrl,
             duration: pi.durationOverride ?? content.duration ?? 10,
             name: content.name,
             campaignId: null,
