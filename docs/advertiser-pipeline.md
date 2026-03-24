@@ -8,13 +8,20 @@
 
 ## Estrategia Comercial
 
-### Por qué NO TNT Sport / Warner Bros (Todavía)
+### Warner Bros — EN NEGOCIACIÓN
 
-Las marcas de entretenimiento nacional (TNT Sport, Warner Bros, Disney) compran publicidad DOOH a escala mediante programmatic buying. Una red de 70 pantallas en una sola ubicación no alcanza el umbral mínimo de impresiones que manejan sus agencias de medios (~500.000+ impresiones diarias, múltiples ubicaciones). Estos anunciantes son objetivo para v2 cuando Belgrano opere 3+ venues.
+Warner Bros está en conversaciones activas con Belgrano Digital para publicitar en la red CLC. Esto valida el modelo: una marca de entretenimiento global ve valor en la audiencia cautiva ABC1 de la clínica, incluso con una sola ubicación de 70 pantallas.
 
-### Anunciantes Target: Sector Salud + Financiero
+**Estado:** Negociación activa
+**Contacto:** En curso
+**Plan probable:** Intermedio o Business (por definir)
+**Tipo de contenido:** Estrenos de películas, series HBO/Max, eventos especiales
 
-Los primeros anunciantes deben cumplir tres criterios:
+> Warner Bros es el primer anunciante de entretenimiento en el pipeline. Su presencia le da peso al media kit y credibilidad frente a otros anunciantes potenciales.
+
+### Anunciantes Target: Salud + Financiero + Entretenimiento
+
+Los anunciantes deben cumplir al menos uno de estos criterios:
 
 1. **Relevancia contextual:** Su producto/servicio es relevante para la audiencia de una clínica
 2. **Presencia existente:** Ya tienen relación con CLC o con el sector salud chileno
@@ -110,21 +117,42 @@ Los primeros anunciantes deben cumplir tres criterios:
 
 **Approach:** Paquetes mensuales simples, sin contrato largo. Ideal para llenar inventario remanente y mantener variedad de contenido.
 
+### Categoría 5: Entretenimiento y Medios
+
+**Prioridad:** ALTA — Warner Bros ya está en negociación. Valida que marcas globales ven valor en la red CLC.
+
+| Anunciante | Estado | Tipo de Contenido | Plan Estimado |
+|------------|--------|-------------------|---------------|
+| **Warner Bros** | **EN NEGOCIACIÓN** | Estrenos cine, series HBO/Max, eventos | Intermedio o Business |
+| TNT Sport | Prospecto futuro | Eventos deportivos, UFC, Champions | Starter o Intermedio |
+| Disney+ / Star+ | Prospecto futuro | Estrenos streaming, Marvel, Star Wars | Starter o Intermedio |
+| Netflix | Prospecto futuro | Series y películas destacadas | Starter |
+| Spotify | Prospecto futuro | Premium familiar, podcasts salud | Starter |
+
+**Pitch para Entretenimiento:**
+> "6.000 personas ABC1 al día, sentadas 15-45 minutos mirando pantallas. Es el momento perfecto para un trailer de 15 segundos. Full HD, sin competencia visual, audiencia cautiva. Warner Bros ya está en la red."
+
+**Approach:**
+1. Warner Bros como caso ancla — una vez firmado, usar como referencia
+2. Contactar agencias de medios que manejan pauta de entretenimiento en Chile
+3. Ofrecer paquetes de lanzamiento (2 semanas pre-estreno + 2 semanas en cartelera)
+4. QR code a compra de entradas / suscripción streaming como CTA
+
 ---
 
-## Pricing por Categoría
+## Planes y Pricing por Categoría
 
-| Categoría | CPM Target (CLP) | Paquete Mínimo Mensual | Contrato Mínimo |
-|-----------|------------------|----------------------|-----------------|
-| ISAPREs | $5.700 – $7.600 | $800.000 CLP | Trimestral |
-| Farmacéuticas | $7.600 – $11.400 | $1.000.000 CLP | Trimestral |
-| Seguros | $4.750 – $7.600 | $600.000 CLP | Mensual renovable |
-| Wellness | $3.800 – $4.750 | $300.000 CLP | Mensual renovable |
+| Categoría | Plan Sugerido | Precio Mensual | Contrato Mínimo |
+|-----------|---------------|----------------|-----------------|
+| ISAPREs | Starter o Intermedio | $5.000.000 – $7.000.000 CLP | Trimestral |
+| Farmacéuticas | Intermedio o Business | $7.000.000 – $10.000.000 CLP | Trimestral |
+| Entretenimiento | Intermedio o Business | $7.000.000 – $10.000.000 CLP | Mensual (por estreno) |
+| Seguros | Starter | $5.000.000 CLP | Mensual renovable |
+| Wellness | Starter | $5.000.000 CLP | Mensual renovable |
 
 **Descuentos:**
 - Contrato semestral: -10%
 - Contrato anual: -15%
-- Multi-zona (3+ zonas): -5% adicional
 
 ---
 
@@ -134,8 +162,8 @@ Los primeros anunciantes deben cumplir tres criterios:
 
 | Semana | Acción | Target |
 |--------|--------|--------|
-| 1 | Preparar media kit definitivo | — |
-| 2 | Contactar 3 ISAPREs (Colmena, Cruz Blanca, Consalud) | 3 reuniones agendadas |
+| 1 | Cerrar negociación Warner Bros + preparar media kit definitivo | Warner firmado |
+| 2 | Contactar 3 ISAPREs (Colmena, Cruz Blanca, Consalud) — usar Warner como referencia | 3 reuniones agendadas |
 | 3 | Contactar 2 farmacéuticas OTC (Bayer, Abbott) | 2 reuniones agendadas |
 | 4 | Seguimiento + primera propuesta formal | 1-2 propuestas enviadas |
 
