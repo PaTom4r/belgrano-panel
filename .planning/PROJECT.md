@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A digital signage management service offered by Belgrano Digital to Clínica Los Condes (CLC), replacing their current overpriced provider. Beyond screen management via Samsung MagicInfo, the core differentiator is building an advertiser network (TNT Sport, Warner Bros, etc.) that turns CLC's 70 screens from a cost center into a revenue source. CLC is the first client — the service is designed to scale to other clinics and locations.
+A custom digital signage platform by Belgrano Digital for Clínica Los Condes (CLC), replacing both the current provider AND Samsung MagicInfo. The platform manages 70 screens via URL Launcher (no MagicInfo licenses needed), brings advertisers (Warner Bros in negotiation, ISAPREs, pharma), and turns CLC's screens from a cost center into revenue. CLC is the first client — designed to scale to other clinics.
 
 ## Core Value
 
@@ -15,6 +15,20 @@ CLC stops paying for screen maintenance and starts earning revenue from their ex
 <!-- Shipped and confirmed valuable. -->
 
 (None yet — ship to validate)
+
+## Current Milestone: v1.1 — Display Module + Heartbeat
+
+**Goal:** Build the display engine that replaces MagicInfo entirely. Each TV loads a URL, the web app handles playback, scheduling, templates, monitoring, and proof-of-play. Replicates all MagicInfo Premium features.
+
+**Target features:**
+- Display page (fullscreen content playback via URL Launcher)
+- Heartbeat monitoring (real-time online/offline)
+- Screen registration (self-register on first load)
+- Template builder (multi-zone layouts — Web Author replacement)
+- Conditional scheduling (rules-based content switching)
+- Smart playlists (priority, frequency caps, advertiser balancing)
+- Proof-of-play integration (live play logging)
+- Remote hardware control (restart, power commands)
 
 ### Active
 
