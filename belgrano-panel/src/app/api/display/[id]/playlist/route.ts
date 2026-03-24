@@ -22,11 +22,10 @@ interface PlaylistResponse {
 // Mock playlists keyed by schedule playlist IDs
 const mockPlaylists: Record<string, PlaylistItem[]> = {
   "pl-ads-peak": [
-    { id: "item-1", type: "image", url: "/mock/gradient-1", duration: 10, name: "ISAPRE Colmena", campaignId: "camp-001" },
-    { id: "item-2", type: "video", url: "/mock/video-1", duration: 15, name: "Abbott Pharma Spot", campaignId: "camp-002" },
+    { id: "item-1", type: "image", url: "https://4kmedia.org/wp-content/uploads/2017/10/lg-new-york-1.jpg", duration: 15, name: "New York 4K", campaignId: null },
+    { id: "item-2", type: "image", url: "/mock/gradient-1", duration: 10, name: "ISAPRE Colmena", campaignId: "camp-001" },
     { id: "item-3", type: "image", url: "/mock/gradient-2", duration: 10, name: "CLC Health Tips", campaignId: null },
-    { id: "item-4", type: "html5", url: "https://example.com/widget", duration: 20, name: "MetLife Calculator", campaignId: "camp-003" },
-    { id: "item-5", type: "image", url: "/mock/gradient-3", duration: 10, name: "Seguros Vida Security", campaignId: "camp-004" },
+    { id: "item-4", type: "image", url: "/mock/gradient-3", duration: 10, name: "Abbott Pharma", campaignId: "camp-002" },
   ],
   "pl-clinic-morning": [
     { id: "item-c1", type: "image", url: "/mock/gradient-clinic-1", duration: 15, name: "Horarios Consultas", campaignId: null },
