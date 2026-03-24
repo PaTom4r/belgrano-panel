@@ -4,11 +4,15 @@
 
 Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transforms it from a monthly cost into an ad revenue stream. The journey has two prerequisite phases (commercial agreement + technical audit) that must complete before any code is written, followed by four build phases that deliver the Belgrano Panel: screen management, content scheduling, campaign management, and proof-of-play reporting. The commercial and infrastructure work is non-negotiable — no line of product code ships until licenses are clear, the server is patched, and the revenue model is signed.
 
+Milestone v1.1 builds the display engine that replaces MagicInfo entirely. Each TV loads a URL, the web app handles playback, scheduling, templates, monitoring, and proof-of-play.
+
 ## Phases
 
 **Phase Numbering:**
 - Integer phases (0, 1, 2, ...): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+
+### Milestone v1.0 — Foundation (Complete)
 
 - [x] **Phase 0: Commercial Foundation** - Revenue model, content policy, and advertiser pipeline locked before any technical work
 - [x] **Phase 1: Technical Audit & Handover** - MagicInfo server verified, screens catalogued, zero-downtime transition executed
@@ -16,6 +20,14 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
 - [x] **Phase 3: Content & Scheduling** - Content library and time-of-day scheduling operational via MagicInfo API
 - [x] **Phase 4: Advertiser & Campaign Management** - Advertiser CRM, campaign CRUD, and content approval workflow live
 - [x] **Phase 5: Reporting & Revenue** - Proof-of-play logging, advertiser reports, and CLC revenue share statements
+
+### Milestone v1.1 — Display Module + Heartbeat
+
+- [ ] **Phase 6: Display Engine + Content API** - Screen renders fullscreen content from web URL with playlist, schedule, and fallback
+- [ ] **Phase 7: Heartbeat + Registration + Hardware Control** - Screens self-register, send heartbeats, and accept remote commands
+- [ ] **Phase 8: Template Builder / Web Author** - Admin creates multi-zone layouts that screens render with synchronized playback
+- [ ] **Phase 9: Conditional Scheduling + Smart Playlists** - Rules-based scheduling and advertiser-balanced playlist logic active
+- [ ] **Phase 10: Proof-of-Play Integration + Real-Time Updates** - Every content play is logged and schedule changes push live to screens
 
 ## Phase Details
 
@@ -84,10 +96,69 @@ Belgrano Digital takes over CLC's 70-screen MagicInfo infrastructure and transfo
   3. The system generates a monthly revenue share statement for CLC showing total ad plays and the resulting CLC payment
   4. Belgrano operator can deliver an advertiser report without manually assembling data from multiple sources
 
+### Phase 6: Display Engine + Content API
+**Goal**: A TV screen loading `/display/[id]` plays the right content at the right time with zero manual intervention
+**Depends on**: Phase 5
+**Requirements**: DISP-01, DISP-02, DISP-03, DISP-04, API-01, API-02
+**Success Criteria** (what must be TRUE):
+  1. A Samsung TV with URL Launcher loads `/display/[id]` and the browser shows fullscreen content with no address bar, tabs, or OS chrome visible
+  2. The screen cycles through all items in its assigned playlist, each playing for the duration configured in the admin panel
+  3. The screen switches automatically between clinic content and ad content when a scheduled time block boundary is crossed
+  4. When the screen loses network or has no content assigned, it shows the Belgrano/CLC branded fallback screen instead of a blank display
+  5. The server API returns the correct playlist for a given screen ID, evaluating zone membership, active schedule, and current time
+**Plans**: TBD
+
+### Phase 7: Heartbeat + Registration + Hardware Control
+**Goal**: Every screen announces itself on first load, stays monitored in real-time, and accepts remote commands
+**Depends on**: Phase 6
+**Requirements**: BEAT-01, BEAT-02, BEAT-03, REG-01, REG-02, HW-01, HW-02, HW-03
+**Success Criteria** (what must be TRUE):
+  1. A screen that has never connected before automatically creates a registration record when it first loads its display URL
+  2. Admin can find the newly registered screen in the panel, assign it a display name, and assign it to a zone
+  3. The admin dashboard shows each screen as online or offline, updating within 1 minute of the screen going down
+  4. A screen that misses 3 consecutive heartbeat cycles (15 minutes) is automatically marked offline and flagged
+  5. Admin can send restart and power on/off commands to a single screen or a group, and the screen executes the command
+**Plans**: TBD
+
+### Phase 8: Template Builder / Web Author
+**Goal**: Admin can compose multi-zone screen layouts and deploy them to screens that render every zone in sync
+**Depends on**: Phase 6
+**Requirements**: TMPL-01, TMPL-02, TMPL-03, TMPL-04
+**Success Criteria** (what must be TRUE):
+  1. Admin can create a template by defining two or more screen regions (zones) with position and size
+  2. Each zone in the template can be configured to show a different content type: video, image, text ticker, HTML embed, live clock, or weather widget
+  3. Admin can preview the template in the panel before pushing it to any screen, seeing an accurate representation of the final layout
+  4. A screen assigned a multi-zone template renders all zones simultaneously with synchronized playback transitions
+**Plans**: TBD
+
+### Phase 9: Conditional Scheduling + Smart Playlists
+**Goal**: Content plays based on when, where, and to whom it should be shown — with advertiser caps enforced automatically
+**Depends on**: Phase 8
+**Requirements**: COND-01, COND-02, COND-03, SMART-01, SMART-02, SMART-03
+**Success Criteria** (what must be TRUE):
+  1. Admin can create a schedule with conditions for day-of-week, date range, and time block, and content only plays when all conditions match
+  2. Admin can target a schedule to specific zones, individual screens, or screen groups — content plays only on the targeted subset
+  3. An emergency alert schedule immediately overrides any campaign or default schedule on the affected screens
+  4. A high-priority playlist item plays proportionally more often than low-priority items across the same playlist cycle
+  5. When an advertiser hits their daily frequency cap, their content stops playing for that day without any manual intervention
+  6. Over a full day, advertiser play counts reflect their relative campaign weights automatically
+**Plans**: TBD
+
+### Phase 10: Proof-of-Play Integration + Real-Time Updates
+**Goal**: Every content play is recorded and auditable, and schedule changes reach screens within seconds
+**Depends on**: Phase 9
+**Requirements**: PLAY-01, PLAY-02, API-03
+**Success Criteria** (what must be TRUE):
+  1. Every time a content item completes playback on a screen, a play log entry is recorded with content ID, zone, screen ID, timestamp, and actual duration
+  2. Play log entries appear in the existing proof-of-play and reporting pages without requiring a page refresh
+  3. When admin publishes a schedule change in the panel, connected screens receive and apply the new schedule within 10 seconds
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10
+
+### Milestone v1.0 — Foundation
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -98,6 +169,17 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5
 | 4. Advertiser & Campaign Management | 1/1 | Complete | 2026-03-23 |
 | 5. Reporting & Revenue | 1/1 | Complete | 2026-03-23 |
 
+### Milestone v1.1 — Display Module + Heartbeat
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 6. Display Engine + Content API | 0/? | Not started | — |
+| 7. Heartbeat + Registration + Hardware Control | 0/? | Not started | — |
+| 8. Template Builder / Web Author | 0/? | Not started | — |
+| 9. Conditional Scheduling + Smart Playlists | 0/? | Not started | — |
+| 10. Proof-of-Play Integration + Real-Time Updates | 0/? | Not started | — |
+
 ---
 *Roadmap created: 2026-03-23*
-*Requirements covered: 19/19*
+*Milestone v1.1 phases added: 2026-03-24*
+*Requirements covered: 19/19 (v1.0) + 27/27 (v1.1)*

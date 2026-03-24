@@ -5,7 +5,7 @@
 
 ## v1.1 Requirements — Display Module + Heartbeat
 
-Replaces MagicInfo Premium entirely. 24 requirements across 8 categories.
+Replaces MagicInfo Premium entirely. 27 requirements across 8 categories.
 
 ### Display Playback
 
@@ -76,39 +76,39 @@ All 19 requirements from v1.0 are complete. See MILESTONES.md for details.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DISP-01 | — | Pending |
-| DISP-02 | — | Pending |
-| DISP-03 | — | Pending |
-| DISP-04 | — | Pending |
-| HW-01 | — | Pending |
-| HW-02 | — | Pending |
-| HW-03 | — | Pending |
-| BEAT-01 | — | Pending |
-| BEAT-02 | — | Pending |
-| BEAT-03 | — | Pending |
-| TMPL-01 | — | Pending |
-| TMPL-02 | — | Pending |
-| TMPL-03 | — | Pending |
-| TMPL-04 | — | Pending |
-| COND-01 | — | Pending |
-| COND-02 | — | Pending |
-| COND-03 | — | Pending |
-| SMART-01 | — | Pending |
-| SMART-02 | — | Pending |
-| SMART-03 | — | Pending |
-| PLAY-01 | — | Pending |
-| PLAY-02 | — | Pending |
-| REG-01 | — | Pending |
-| REG-02 | — | Pending |
-| API-01 | — | Pending |
-| API-02 | — | Pending |
-| API-03 | — | Pending |
+| DISP-01 | Phase 6 | Pending |
+| DISP-02 | Phase 6 | Pending |
+| DISP-03 | Phase 6 | Pending |
+| DISP-04 | Phase 6 | Pending |
+| API-01 | Phase 6 | Pending |
+| API-02 | Phase 6 | Pending |
+| BEAT-01 | Phase 7 | Pending |
+| BEAT-02 | Phase 7 | Pending |
+| BEAT-03 | Phase 7 | Pending |
+| REG-01 | Phase 7 | Pending |
+| REG-02 | Phase 7 | Pending |
+| HW-01 | Phase 7 | Pending |
+| HW-02 | Phase 7 | Pending |
+| HW-03 | Phase 7 | Pending |
+| TMPL-01 | Phase 8 | Pending |
+| TMPL-02 | Phase 8 | Pending |
+| TMPL-03 | Phase 8 | Pending |
+| TMPL-04 | Phase 8 | Pending |
+| COND-01 | Phase 9 | Pending |
+| COND-02 | Phase 9 | Pending |
+| COND-03 | Phase 9 | Pending |
+| SMART-01 | Phase 9 | Pending |
+| SMART-02 | Phase 9 | Pending |
+| SMART-03 | Phase 9 | Pending |
+| PLAY-01 | Phase 10 | Pending |
+| PLAY-02 | Phase 10 | Pending |
+| API-03 | Phase 10 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 27 total
-- Mapped to phases: 0
-- Unmapped: 27
+- Mapped to phases: 27
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-24*
-*Last updated: 2026-03-24 after milestone v1.1 initialization*
+*Last updated: 2026-03-24 — traceability mapped to phases 6-10*
