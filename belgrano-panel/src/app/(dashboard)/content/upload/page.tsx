@@ -13,14 +13,52 @@ export default function UploadContentPage() {
   const [duration, setDuration] = useState("15");
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+
+  function handleFileChange(f: File | null) {
+    setFile(f);
+    if (f && f.type.startsWith("image/")) {
+      setPreview(URL.createObjectURL(f));
+      if (!type || type === "video") setType("image");
+    } else if (f && f.type.startsWith("video/")) {
+      setPreview(null);
+      setType("video");
+    } else {
+      setPreview(null);
+    }
+    if (f && !name) setName(f.name.replace(/\.[^.]+$/, ""));
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!file) return;
     setSubmitting(true);
+    setError(null);
 
-    // Placeholder — simulate upload
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push("/content");
+    try {
+      // Get org ID
+      const orgRes = await fetch("/api/org");
+      const { org } = await orgRes.json();
+      if (!org) throw new Error("No organization found");
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", name);
+      formData.append("type", type);
+      formData.append("duration", duration);
+      formData.append("organizationId", org.id);
+
+      const res = await fetch("/api/content/upload", { method: "POST", body: formData });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+
+      router.push("/content");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -126,7 +164,7 @@ export default function UploadContentPage() {
                       type="file"
                       className="hidden"
                       accept="video/*,image/*,.html,.htm,.zip"
-                      onChange={(e) => setFile(e.target.files?.[0] || null)}
+                      onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
                     />
                   </label>
                   {file ? (
@@ -140,22 +178,24 @@ export default function UploadContentPage() {
               </div>
             </div>
 
-            {/* Preview placeholder */}
-            {file && (
+            {error && (
+              <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
+
+            {preview && (
               <div className="rounded-lg bg-slate-50 p-4 border border-slate-200">
-                <p className="text-sm font-medium text-slate-700">Preview</p>
-                <div className="mt-2 flex items-center justify-center rounded-lg bg-slate-200 h-40">
-                  <p className="text-sm text-slate-500">
-                    Preview not available in demo mode
-                  </p>
-                </div>
+                <p className="text-sm font-medium text-slate-700 mb-2">Preview</p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={preview} alt="Preview" className="rounded-lg max-h-60 object-contain mx-auto" />
               </div>
             )}
 
             <div className="flex gap-3 pt-2">
               <button
                 type="submit"
-                disabled={submitting || !name}
+                disabled={submitting || !name || !file}
                 className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50"
               >
                 {submitting ? "Uploading..." : "Upload Content"}
