@@ -2,6 +2,9 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card } from "@/components/ui/card";
 
 interface ContentItem {
   id: string;
@@ -43,16 +46,16 @@ const typeLabels: Record<string, string> = {
   html5: "HTML5",
 };
 
-const typeColors: Record<string, string> = {
-  video: "bg-blue-50 text-blue-700",
-  image: "bg-emerald-50 text-emerald-700",
-  html5: "bg-violet-50 text-violet-700",
+const typeBadgeVariant: Record<string, "info" | "success" | "violet"> = {
+  video: "info",
+  image: "success",
+  html5: "violet",
 };
 
-const statusColors: Record<string, string> = {
-  approved: "bg-green-50 text-green-700",
-  pending: "bg-yellow-50 text-yellow-700",
-  rejected: "bg-red-50 text-red-700",
+const statusBadgeVariant: Record<string, "success" | "warning" | "error"> = {
+  approved: "success",
+  pending: "warning",
+  rejected: "error",
 };
 
 export default function ContentPage() {
@@ -75,20 +78,18 @@ export default function ContentPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Content Library</h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Manage videos, images, and HTML5 content for your displays
-          </p>
-        </div>
-        <Link
-          href="/content/upload"
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          Upload Content
-        </Link>
-      </div>
+      <PageHeader
+        title="Content Library"
+        description="Manage videos, images, and HTML5 content for your displays"
+        actions={
+          <Link
+            href="/content/upload"
+            className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          >
+            Upload Content
+          </Link>
+        }
+      />
 
       {/* Filters */}
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
@@ -97,12 +98,12 @@ export default function ContentPage() {
           placeholder="Search content..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className="flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
         />
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
         >
           <option value="all">All Types</option>
           <option value="video">Video</option>
@@ -112,7 +113,7 @@ export default function ContentPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
         >
           <option value="all">All Status</option>
           <option value="approved">Approved</option>
@@ -122,88 +123,80 @@ export default function ContentPage() {
       </div>
 
       {/* Subnavigation */}
-      <div className="mb-6 flex gap-4 border-b border-gray-200">
+      <div className="mb-6 flex gap-4 border-b border-slate-200">
         <Link
           href="/content"
-          className="border-b-2 border-blue-600 px-1 pb-3 text-sm font-medium text-blue-600"
+          className="border-b-2 border-blue-600 px-1 pb-3 text-sm font-medium text-blue-600 transition-colors"
         >
           Library
         </Link>
         <Link
           href="/content/playlists"
-          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
         >
           Playlists
         </Link>
         <Link
           href="/content/schedules"
-          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
         >
           Schedules
         </Link>
       </div>
 
       {/* Content table */}
-      <div className="overflow-hidden rounded-xl bg-white shadow-sm border border-gray-100">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <Card padding="p-0">
+        <table className="min-w-full divide-y divide-slate-200">
+          <thead className="bg-slate-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Type
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Duration
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Size
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Uploaded
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-slate-200">
             {filtered.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-slate-50 transition-colors">
                 <td className="px-4 py-3">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-slate-900">
                       {item.name}
                     </p>
-                    <p className="text-xs text-gray-500">{item.fileName}</p>
+                    <p className="text-xs text-slate-500">{item.fileName}</p>
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span
-                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-                      typeColors[item.type]
-                    }`}
-                  >
+                  <Badge variant={typeBadgeVariant[item.type]}>
                     {typeLabels[item.type]}
-                  </span>
+                  </Badge>
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-slate-600">
                   {item.duration}s
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-slate-600">
                   {formatFileSize(item.fileSize)}
                 </td>
                 <td className="px-4 py-3">
-                  <span
-                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium capitalize ${
-                      statusColors[item.approvalStatus]
-                    }`}
-                  >
-                    {item.approvalStatus}
-                  </span>
+                  <Badge variant={statusBadgeVariant[item.approvalStatus]}>
+                    {item.approvalStatus.charAt(0).toUpperCase() + item.approvalStatus.slice(1)}
+                  </Badge>
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-500">
+                <td className="px-4 py-3 text-sm text-slate-500">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </td>
               </tr>
@@ -213,10 +206,10 @@ export default function ContentPage() {
 
         {filtered.length === 0 && (
           <div className="py-12 text-center">
-            <p className="text-gray-500">No content matches your filters.</p>
+            <p className="text-slate-500">No content matches your filters.</p>
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 }

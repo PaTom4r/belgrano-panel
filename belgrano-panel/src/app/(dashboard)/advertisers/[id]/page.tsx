@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { use } from "react";
+import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card, CardHeader } from "@/components/ui/card";
 
 type Advertiser = {
   id: string;
@@ -32,26 +35,26 @@ const mockAdvertisers: Record<string, Advertiser> = {
     name: "Colmena Golden Cross",
     company: "Colmena",
     category: "ISAPRE",
-    contactName: "Carolina Muñoz",
+    contactName: "Carolina Munoz",
     contactEmail: "cmunoz@colmena.cl",
     contactPhone: "+56 9 8765 4321",
     contractStartDate: "2026-01-15",
     contractEndDate: "2026-12-31",
     contractValue: 18500000,
-    notes: "Campaña institucional + planes de salud",
+    notes: "Campana institucional + planes de salud",
   },
   "adv-002": {
     id: "adv-002",
     name: "Cruz Blanca",
     company: "Cruz Blanca Salud",
     category: "ISAPRE",
-    contactName: "Rodrigo Sepúlveda",
+    contactName: "Rodrigo Sepulveda",
     contactEmail: "rsepulveda@cruzblanca.cl",
     contactPhone: "+56 9 7654 3210",
     contractStartDate: "2026-03-01",
     contractEndDate: "2026-08-31",
     contractValue: 12000000,
-    notes: "Plan Preferente promoción",
+    notes: "Plan Preferente promocion",
   },
   "adv-003": {
     id: "adv-003",
@@ -64,20 +67,20 @@ const mockAdvertisers: Record<string, Advertiser> = {
     contractStartDate: "2026-02-01",
     contractEndDate: "2026-07-31",
     contractValue: 8500000,
-    notes: "Línea nutricional Ensure + Pedialyte",
+    notes: "Linea nutricional Ensure + Pedialyte",
   },
   "adv-004": {
     id: "adv-004",
     name: "Novartis Chile",
     company: "Novartis",
     category: "Pharma",
-    contactName: "Andrés Figueroa",
+    contactName: "Andres Figueroa",
     contactEmail: "andres.figueroa@novartis.com",
     contactPhone: "+56 2 3456 7890",
     contractStartDate: "2026-04-01",
     contractEndDate: "2027-03-31",
     contractValue: 22000000,
-    notes: "Campaña oncología + cardiología",
+    notes: "Campana oncologia + cardiologia",
   },
   "adv-005": {
     id: "adv-005",
@@ -97,17 +100,17 @@ const mockAdvertisers: Record<string, Advertiser> = {
     name: "Bupa Chile",
     company: "Bupa",
     category: "Insurance",
-    contactName: "Matías Contreras",
+    contactName: "Matias Contreras",
     contactEmail: "mcontreras@bupa.cl",
     contactPhone: "+56 9 5432 1098",
     contractStartDate: "2026-05-01",
     contractEndDate: "2026-11-30",
     contractValue: 15000000,
-    notes: "Planes internacionales + Seguro catastrófico",
+    notes: "Planes internacionales + Seguro catastrofico",
   },
   "adv-007": {
     id: "adv-007",
-    name: "Minsal Prevención",
+    name: "Minsal Prevencion",
     company: "Ministerio de Salud",
     category: "Wellness",
     contactName: "Paula Herrera",
@@ -116,37 +119,37 @@ const mockAdvertisers: Record<string, Advertiser> = {
     contractStartDate: "2026-03-15",
     contractEndDate: "2026-09-15",
     contractValue: 5000000,
-    notes: "Campaña prevención enfermedades respiratorias",
+    notes: "Campana prevencion enfermedades respiratorias",
   },
   "adv-008": {
     id: "adv-008",
-    name: "Banmédica",
-    company: "Banmédica S.A.",
+    name: "Banmedica",
+    company: "Banmedica S.A.",
     category: "ISAPRE",
-    contactName: "Ignacio Valdés",
+    contactName: "Ignacio Valdes",
     contactEmail: "ivaldes@banmedica.cl",
     contactPhone: "+56 9 4321 0987",
     contractStartDate: "2026-02-15",
     contractEndDate: "2026-12-15",
     contractValue: 20000000,
-    notes: "Campaña integral — planes + clínicas",
+    notes: "Campana integral -- planes + clinicas",
   },
   "adv-009": {
     id: "adv-009",
     name: "Pfizer Chile",
     company: "Pfizer",
     category: "Pharma",
-    contactName: "Sofía Larraín",
+    contactName: "Sofia Larrain",
     contactEmail: "sofia.larrain@pfizer.com",
     contactPhone: "+56 2 5678 9012",
     contractStartDate: "2025-11-01",
     contractEndDate: "2026-02-28",
     contractValue: 7200000,
-    notes: "Vacunación invierno — contrato finalizado",
+    notes: "Vacunacion invierno -- contrato finalizado",
   },
   "adv-010": {
     id: "adv-010",
-    name: "Clínica Yoga & Bienestar",
+    name: "Clinica Yoga & Bienestar",
     company: "Yoga CL SpA",
     category: "Wellness",
     contactName: "Camila Bravo",
@@ -155,7 +158,7 @@ const mockAdvertisers: Record<string, Advertiser> = {
     contractStartDate: "2026-06-01",
     contractEndDate: "2026-08-31",
     contractValue: 3200000,
-    notes: "Talleres mindfulness y bienestar — contrato futuro",
+    notes: "Talleres mindfulness y bienestar -- contrato futuro",
   },
 };
 
@@ -168,34 +171,34 @@ const mockCampaigns: Record<string, Campaign[]> = {
     { id: "cmp-003", name: "Plan Preferente 2026", status: "active", startDate: "2026-03-01", endDate: "2026-06-30", budgetCLP: 5500000 },
   ],
   "adv-003": [
-    { id: "cmp-004", name: "Ensure Nutrición Adultos", status: "active", startDate: "2026-02-15", endDate: "2026-05-15", budgetCLP: 4200000 },
+    { id: "cmp-004", name: "Ensure Nutricion Adultos", status: "active", startDate: "2026-02-15", endDate: "2026-05-15", budgetCLP: 4200000 },
     { id: "cmp-005", name: "Pedialyte Invierno", status: "draft", startDate: "2026-05-01", endDate: "2026-08-31", budgetCLP: 3000000 },
   ],
   "adv-004": [
-    { id: "cmp-006", name: "Oncología Awareness", status: "draft", startDate: "2026-04-01", endDate: "2026-07-31", budgetCLP: 8000000 },
+    { id: "cmp-006", name: "Oncologia Awareness", status: "draft", startDate: "2026-04-01", endDate: "2026-07-31", budgetCLP: 8000000 },
   ],
   "adv-005": [
     { id: "cmp-007", name: "Seguros Complementarios", status: "active", startDate: "2026-01-15", endDate: "2026-06-30", budgetCLP: 4800000 },
   ],
   "adv-008": [
-    { id: "cmp-008", name: "Banmédica Integral", status: "active", startDate: "2026-03-01", endDate: "2026-09-30", budgetCLP: 10000000 },
+    { id: "cmp-008", name: "Banmedica Integral", status: "active", startDate: "2026-03-01", endDate: "2026-09-30", budgetCLP: 10000000 },
   ],
 };
 
-const categoryColors: Record<string, string> = {
-  ISAPRE: "bg-purple-100 text-purple-800",
-  Pharma: "bg-teal-100 text-teal-800",
-  Insurance: "bg-blue-100 text-blue-800",
-  Wellness: "bg-green-100 text-green-800",
-  Other: "bg-gray-100 text-gray-800",
+const categoryBadgeVariant: Record<string, "purple" | "teal" | "info" | "success" | "draft"> = {
+  ISAPRE: "purple",
+  Pharma: "teal",
+  Insurance: "info",
+  Wellness: "success",
+  Other: "draft",
 };
 
-const statusColors: Record<string, string> = {
-  draft: "bg-slate-100 text-slate-700",
-  active: "bg-emerald-100 text-emerald-800",
-  paused: "bg-amber-100 text-amber-800",
-  completed: "bg-blue-100 text-blue-800",
-  cancelled: "bg-red-100 text-red-800",
+const campaignStatusVariant: Record<string, "draft" | "success" | "warning" | "info" | "error"> = {
+  draft: "draft",
+  active: "success",
+  paused: "warning",
+  completed: "info",
+  cancelled: "error",
 };
 
 const formatCLP = (value: number) =>
@@ -205,9 +208,9 @@ function getContractStatus(start: string, end: string) {
   const now = new Date();
   const startDate = new Date(start);
   const endDate = new Date(end);
-  if (now < startDate) return { label: "Upcoming", color: "text-blue-600 bg-blue-50", icon: "clock" };
-  if (now > endDate) return { label: "Expired", color: "text-red-600 bg-red-50", icon: "x" };
-  return { label: "Active", color: "text-emerald-600 bg-emerald-50", icon: "check" };
+  if (now < startDate) return { label: "Upcoming", variant: "info" as const };
+  if (now > endDate) return { label: "Expired", variant: "error" as const };
+  return { label: "Active", variant: "success" as const };
 }
 
 export default function AdvertiserDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -216,16 +219,14 @@ export default function AdvertiserDetailPage({ params }: { params: Promise<{ id:
 
   if (!advertiser) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <h1 className="text-2xl font-bold text-slate-900">Advertiser Not Found</h1>
-          <p className="mt-2 text-sm text-gray-500">
-            The advertiser you are looking for does not exist.
-          </p>
-          <Link href="/advertisers" className="mt-4 inline-block text-sm text-blue-600 hover:text-blue-800">
-            &larr; Back to Advertisers
-          </Link>
-        </div>
+      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+        <h1 className="text-2xl font-bold text-slate-900">Advertiser Not Found</h1>
+        <p className="mt-2 text-sm text-slate-500">
+          The advertiser you are looking for does not exist.
+        </p>
+        <Link href="/advertisers" className="mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 transition-colors">
+          &larr; Back to Advertisers
+        </Link>
       </div>
     );
   }
@@ -234,132 +235,138 @@ export default function AdvertiserDetailPage({ params }: { params: Promise<{ id:
   const contractStatus = getContractStatus(advertiser.contractStartDate, advertiser.contractEndDate);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+    <div>
+      <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/advertisers" className="text-sm text-blue-600 hover:text-blue-800">
+          <Link href="/advertisers" className="text-sm text-blue-600 hover:text-blue-800 transition-colors">
             &larr; Back to Advertisers
           </Link>
           <div className="mt-2 flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">{advertiser.name}</h1>
-              <div className="mt-2 flex items-center gap-3">
-                <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${categoryColors[advertiser.category]}`}>
+              <PageHeader
+                title={advertiser.name}
+                actions={
+                  <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors">
+                    Edit
+                  </button>
+                }
+              />
+              <div className="flex items-center gap-3 -mt-4 mb-6">
+                <Badge variant={categoryBadgeVariant[advertiser.category]}>
                   {advertiser.category}
-                </span>
-                <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${contractStatus.color}`}>
+                </Badge>
+                <Badge variant={contractStatus.variant}>
                   {contractStatus.label}
-                </span>
+                </Badge>
               </div>
             </div>
-            <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-300 hover:bg-gray-50">
-              Edit
-            </button>
           </div>
         </div>
 
         {/* Info Grid */}
         <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Company Info */}
-          <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Company Info</h2>
-            <dl className="mt-4 space-y-4">
+          <Card>
+            <CardHeader title="Company Info" />
+            <dl className="space-y-4">
               <div>
-                <dt className="text-xs text-gray-400">Company</dt>
+                <dt className="text-xs text-slate-400">Company</dt>
                 <dd className="mt-0.5 text-sm font-medium text-slate-900">{advertiser.company}</dd>
               </div>
               <div>
-                <dt className="text-xs text-gray-400">Category</dt>
+                <dt className="text-xs text-slate-400">Category</dt>
                 <dd className="mt-0.5 text-sm font-medium text-slate-900">{advertiser.category}</dd>
               </div>
               <div>
-                <dt className="text-xs text-gray-400">Notes</dt>
-                <dd className="mt-0.5 text-sm text-gray-700">{advertiser.notes || "No notes"}</dd>
+                <dt className="text-xs text-slate-400">Notes</dt>
+                <dd className="mt-0.5 text-sm text-slate-700">{advertiser.notes || "No notes"}</dd>
               </div>
             </dl>
-          </div>
+          </Card>
 
           {/* Contact Info */}
-          <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Contact Info</h2>
-            <dl className="mt-4 space-y-4">
+          <Card>
+            <CardHeader title="Contact Info" />
+            <dl className="space-y-4">
               <div>
-                <dt className="text-xs text-gray-400">Contact Name</dt>
+                <dt className="text-xs text-slate-400">Contact Name</dt>
                 <dd className="mt-0.5 text-sm font-medium text-slate-900">{advertiser.contactName}</dd>
               </div>
               <div>
-                <dt className="text-xs text-gray-400">Email</dt>
+                <dt className="text-xs text-slate-400">Email</dt>
                 <dd className="mt-0.5 text-sm text-blue-600">{advertiser.contactEmail}</dd>
               </div>
               <div>
-                <dt className="text-xs text-gray-400">Phone</dt>
+                <dt className="text-xs text-slate-400">Phone</dt>
                 <dd className="mt-0.5 text-sm font-medium text-slate-900">{advertiser.contactPhone}</dd>
               </div>
             </dl>
-          </div>
+          </Card>
         </div>
 
         {/* Contract Details */}
-        <div className="mb-8 rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Contract Details</h2>
-          <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <Card className="mb-8">
+          <CardHeader title="Contract Details" />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <div>
-              <dt className="text-xs text-gray-400">Start Date</dt>
+              <dt className="text-xs text-slate-400">Start Date</dt>
               <dd className="mt-0.5 text-sm font-medium text-slate-900">{advertiser.contractStartDate}</dd>
             </div>
             <div>
-              <dt className="text-xs text-gray-400">End Date</dt>
+              <dt className="text-xs text-slate-400">End Date</dt>
               <dd className="mt-0.5 text-sm font-medium text-slate-900">{advertiser.contractEndDate}</dd>
             </div>
             <div>
-              <dt className="text-xs text-gray-400">Contract Value</dt>
+              <dt className="text-xs text-slate-400">Contract Value</dt>
               <dd className="mt-0.5 text-lg font-bold text-slate-900">{formatCLP(advertiser.contractValue)}</dd>
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* Campaigns */}
-        <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Campaigns</h2>
-            <Link
-              href="/campaigns/new"
-              className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700"
-            >
-              New Campaign
-            </Link>
-          </div>
+        <Card>
+          <CardHeader
+            title="Campaigns"
+            action={
+              <Link
+                href="/campaigns/new"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-3 py-1.5 text-xs font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                New Campaign
+              </Link>
+            }
+          />
           {campaigns.length === 0 ? (
-            <p className="mt-6 text-center text-sm text-gray-400">No campaigns yet</p>
+            <p className="text-center text-sm text-slate-400 py-6">No campaigns yet</p>
           ) : (
-            <div className="mt-4 overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200">
+                <thead className="bg-slate-50">
                   <tr>
-                    <th className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Name</th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Status</th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Period</th>
-                    <th className="px-4 py-2 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">Budget</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Period</th>
+                    <th className="px-4 py-2 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Budget</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-slate-200">
                   {campaigns.map((c) => (
-                    <tr key={c.id} className="hover:bg-gray-50 transition">
+                    <tr key={c.id} className="hover:bg-slate-50 transition-colors">
                       <td className="whitespace-nowrap px-4 py-3">
-                        <Link href={`/campaigns/${c.id}`} className="text-sm font-medium text-blue-600 hover:text-blue-800">
+                        <Link href={`/campaigns/${c.id}`} className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
                           {c.name}
                         </Link>
                       </td>
                       <td className="whitespace-nowrap px-4 py-3">
-                        <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColors[c.status]}`}>
-                          {c.status}
-                        </span>
+                        <Badge variant={campaignStatusVariant[c.status]}>
+                          {c.status.charAt(0).toUpperCase() + c.status.slice(1)}
+                        </Badge>
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-500">
                         {c.startDate} &mdash; {c.endDate}
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-right text-sm font-medium text-gray-900">
+                      <td className="whitespace-nowrap px-4 py-3 text-right text-sm font-medium text-slate-900">
                         {formatCLP(c.budgetCLP)}
                       </td>
                     </tr>
@@ -368,7 +375,7 @@ export default function AdvertiserDetailPage({ params }: { params: Promise<{ id:
               </table>
             </div>
           )}
-        </div>
+        </Card>
       </div>
     </div>
   );

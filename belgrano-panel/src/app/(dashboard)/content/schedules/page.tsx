@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface ScheduleBlock {
   id: string;
@@ -134,38 +137,36 @@ export default function SchedulesPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Schedules</h1>
-          <p className="mt-1 text-sm text-gray-500">
-            Define when and where playlists are displayed
-          </p>
-        </div>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          {showForm ? "Cancel" : "Create Schedule"}
-        </button>
-      </div>
+      <PageHeader
+        title="Schedules"
+        description="Define when and where playlists are displayed"
+        actions={
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          >
+            {showForm ? "Cancel" : "Create Schedule"}
+          </button>
+        }
+      />
 
       {/* Subnavigation */}
-      <div className="mb-6 flex gap-4 border-b border-gray-200">
+      <div className="mb-6 flex gap-4 border-b border-slate-200">
         <Link
           href="/content"
-          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
         >
           Library
         </Link>
         <Link
           href="/content/playlists"
-          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          className="border-b-2 border-transparent px-1 pb-3 text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
         >
           Playlists
         </Link>
         <Link
           href="/content/schedules"
-          className="border-b-2 border-blue-600 px-1 pb-3 text-sm font-medium text-blue-600"
+          className="border-b-2 border-blue-600 px-1 pb-3 text-sm font-medium text-blue-600 transition-colors"
         >
           Schedules
         </Link>
@@ -173,171 +174,170 @@ export default function SchedulesPage() {
 
       {/* Create form */}
       {showForm && (
-        <form
-          onSubmit={handleCreate}
-          className="mb-6 rounded-xl bg-white p-6 shadow-sm border border-gray-100"
-        >
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Create Schedule
-          </h3>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Schedule Name
-              </label>
-              <input
-                type="text"
-                value={formName}
-                onChange={(e) => setFormName(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                placeholder="e.g., Weekend Morning Rotation"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Playlist
-              </label>
-              <select
-                value={formPlaylist}
-                onChange={(e) => setFormPlaylist(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-              >
-                {allPlaylists.map((p) => (
-                  <option key={p} value={p}>
-                    {p}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Start Time
-              </label>
-              <input
-                type="time"
-                value={formStart}
-                onChange={(e) => setFormStart(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                End Time
-              </label>
-              <input
-                type="time"
-                value={formEnd}
-                onChange={(e) => setFormEnd(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Days of Week
-              </label>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5, 6, 7].map((day) => (
-                  <button
-                    key={day}
-                    type="button"
-                    onClick={() => toggleDay(day)}
-                    className={`h-9 w-12 rounded-lg text-xs font-medium transition-colors ${
-                      formDays.includes(day)
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    }`}
-                  >
-                    {dayNames[day]}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Target Zones
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {allZones.map((zone) => (
-                  <button
-                    key={zone}
-                    type="button"
-                    onClick={() => toggleZone(zone)}
-                    className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-                      formZones.includes(zone)
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    }`}
-                  >
-                    {zone}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={formIsClinic}
-                  onChange={(e) => setFormIsClinic(e.target.checked)}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">
-                  Clinic content (institutional, not ads)
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <div className="mt-4 flex gap-3">
-            <button
-              type="submit"
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-            >
+        <Card className="mb-6">
+          <form onSubmit={handleCreate}>
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">
               Create Schedule
-            </button>
-          </div>
-        </form>
+            </h3>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-slate-700">
+                  Schedule Name
+                </label>
+                <input
+                  type="text"
+                  value={formName}
+                  onChange={(e) => setFormName(e.target.value)}
+                  required
+                  className="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
+                  placeholder="e.g., Weekend Morning Rotation"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700">
+                  Playlist
+                </label>
+                <select
+                  value={formPlaylist}
+                  onChange={(e) => setFormPlaylist(e.target.value)}
+                  className="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
+                >
+                  {allPlaylists.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700">
+                  Start Time
+                </label>
+                <input
+                  type="time"
+                  value={formStart}
+                  onChange={(e) => setFormStart(e.target.value)}
+                  className="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700">
+                  End Time
+                </label>
+                <input
+                  type="time"
+                  value={formEnd}
+                  onChange={(e) => setFormEnd(e.target.value)}
+                  className="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Days of Week
+                </label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5, 6, 7].map((day) => (
+                    <button
+                      key={day}
+                      type="button"
+                      onClick={() => toggleDay(day)}
+                      className={`h-9 w-12 rounded-lg text-xs font-medium transition-colors ${
+                        formDays.includes(day)
+                          ? "bg-blue-600 text-white"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      {dayNames[day]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Target Zones
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {allZones.map((zone) => (
+                    <button
+                      key={zone}
+                      type="button"
+                      onClick={() => toggleZone(zone)}
+                      className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                        formZones.includes(zone)
+                          ? "bg-blue-600 text-white"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      {zone}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={formIsClinic}
+                    onChange={(e) => setFormIsClinic(e.target.checked)}
+                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus-visible:ring-blue-500"
+                  />
+                  <span className="text-sm text-slate-700">
+                    Clinic content (institutional, not ads)
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div className="mt-4 flex gap-3">
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                Create Schedule
+              </button>
+            </div>
+          </form>
+        </Card>
       )}
 
       {/* Schedule timeline table */}
-      <div className="overflow-hidden rounded-xl bg-white shadow-sm border border-gray-100">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <Card padding="p-0">
+        <table className="min-w-full divide-y divide-slate-200">
+          <thead className="bg-slate-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Schedule
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Playlist
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Time
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Days
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Zones
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                 Type
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-slate-200">
             {schedules.map((schedule) => (
-              <tr key={schedule.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-medium text-gray-900">
+              <tr key={schedule.id} className="hover:bg-slate-50 transition-colors">
+                <td className="px-4 py-3 text-sm font-medium text-slate-900">
                   {schedule.name}
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-slate-600">
                   {schedule.playlist}
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-slate-600">
                   {schedule.startTime} - {schedule.endTime}
                 </td>
                 <td className="px-4 py-3">
@@ -348,7 +348,7 @@ export default function SchedulesPage() {
                         className={`inline-flex h-6 w-6 items-center justify-center rounded text-[10px] font-medium ${
                           schedule.daysOfWeek.includes(day)
                             ? "bg-blue-100 text-blue-700"
-                            : "bg-gray-50 text-gray-300"
+                            : "bg-slate-50 text-slate-300"
                         }`}
                       >
                         {dayNames[day][0]}
@@ -359,35 +359,26 @@ export default function SchedulesPage() {
                 <td className="px-4 py-3">
                   <div className="flex flex-wrap gap-1">
                     {schedule.zones.map((zone) => (
-                      <span
-                        key={zone}
-                        className="inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-600"
-                      >
+                      <Badge key={zone} variant="draft">
                         {zone}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span
-                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-                      schedule.isClinicContent
-                        ? "bg-teal-50 text-teal-700"
-                        : "bg-purple-50 text-purple-700"
-                    }`}
-                  >
+                  <Badge variant={schedule.isClinicContent ? "teal" : "purple"}>
                     {schedule.isClinicContent ? "Clinic" : "Ad"}
-                  </span>
+                  </Badge>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
+      </Card>
 
       {/* Visual timeline */}
-      <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-4">
           Daily Timeline
         </h3>
         <div className="space-y-3">
@@ -396,7 +387,7 @@ export default function SchedulesPage() {
             <div className="w-32 flex-shrink-0" />
             <div className="flex flex-1">
               {Array.from({ length: 15 }, (_, i) => i + 8).map((hour) => (
-                <div key={hour} className="flex-1 text-[10px] text-gray-400">
+                <div key={hour} className="flex-1 text-[10px] text-slate-400">
                   {String(hour).padStart(2, "0")}:00
                 </div>
               ))}
@@ -415,10 +406,10 @@ export default function SchedulesPage() {
 
             return (
               <div key={schedule.id} className="flex items-center">
-                <div className="w-32 flex-shrink-0 truncate pr-2 text-xs text-gray-600">
+                <div className="w-32 flex-shrink-0 truncate pr-2 text-xs text-slate-600">
                   {schedule.name}
                 </div>
-                <div className="relative flex-1 h-7 bg-gray-50 rounded">
+                <div className="relative flex-1 h-7 bg-slate-50 rounded">
                   <div
                     className={`absolute top-0.5 bottom-0.5 rounded text-[10px] font-medium flex items-center px-2 truncate ${
                       schedule.isClinicContent
@@ -437,7 +428,7 @@ export default function SchedulesPage() {
             );
           })}
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
